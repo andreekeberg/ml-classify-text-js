@@ -45,4 +45,4 @@ Return an array of one or more Prediction instances
 | --- | --- | --- | --- |
 | input | <code>string</code> |  | Input string to make a prediction from |
 | [maxMatches] | <code>int</code> | <code>1</code> | Maximum number of predictions to return |
-| [minimumConfidence] | <code>float</code> | <code></code> | Minimum confidence required to include a prediction |
+| [minimumConfidence] | <code>float</code> | <code>null</code> | Minimum confidence required to include a prediction |

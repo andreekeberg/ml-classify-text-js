@@ -93,8 +93,8 @@ class Classifier {
      * Return an array of one or more Prediction instances
      *
      * @param {string} input - Input string to make a prediction from
-     * @param {int} [maxMatches] Maximum number of predictions to return
-     * @param {float} [minimumConfidence] Minimum confidence required to include a prediction
+     * @param {int} [maxMatches=1] Maximum number of predictions to return
+     * @param {float} [minimumConfidence=null] Minimum confidence required to include a prediction
      * @return {Array}
      */
     predict(input, maxMatches = 1, minimumConfidence = null) {
