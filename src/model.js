@@ -166,8 +166,9 @@ class Model {
 
     /**
      * Return the model in its current state for storing, including the configured
-     * n-gram min/max values, the vocabulary as an array (if any, otherwise false),
-     * and an object literal with all the training data
+     * n-gram min/max values, the minimum confidence required for for predictions,
+     * the vocabulary as an array (if any, otherwise false),and an object literal
+     * with all the training data
      *
      * @return {Object}
      */
