@@ -1,0 +1,15 @@
+*.log
+npm-debug.log*
+coverage
+.nyc_output
+node_modules
+package-lock.json
+yarn.lock
+src
+test
+CHANGELOG.md
+.travis.yml
+.editorconfig
+.eslintrc
+.babelrc
+.gitignore

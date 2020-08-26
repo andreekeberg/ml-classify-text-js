@@ -1,0 +1,21 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+        ["@babel/env"]
+      ],
+      "plugins": [
+        "add-module-exports"
+      ]
+    },
+    "production": {
+      "presets": [
+        ["@babel/env"],
+        "minify"
+      ],
+      "plugins": [
+        "add-module-exports"
+      ]
+    }
+  }
+}

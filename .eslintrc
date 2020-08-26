@@ -1,0 +1,19 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": ["warn", "never"],
+    "no-mixed-spaces-and-tabs": "warn",
+    "indent": [
+      "warn"
+    ],
+    "max-statements-per-line": [
+      "warn",
+      {
+        "max": 2
+      }
+    ]
+  }
+}
