@@ -1,5 +1,7 @@
 # 📄 JavaScript Text Classifier
 
+[![Version](https://img.shields.io/npm/v/ml-classify-text)](https://www.npmjs.com/package/ml-classify-text) [![Total Downloads](https://img.shields.io/npm/dt/ml-classify-text)](https://www.npmjs.com/package/ml-classify-text) [![License](https://img.shields.io/npm/l/ml-classify-text)](https://www.npmjs.com/package/ml-classify-text)
+
 Use machine learning to classify text using [n-grams](https://en.wikipedia.org/wiki/N-gram) and [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity).
 
 Minimal library that can be used both in the **browser** and in **Node.js**, that allows you to train a model with a large amount of text samples (and corresponding labels), and then use this model to quickly predict one or more appropriate labels for new text samples.
