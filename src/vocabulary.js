@@ -5,7 +5,7 @@
 class Vocabulary {
     constructor(terms = []) {
         if (!(terms instanceof Array) && !(terms instanceof Set)) {
-            throw new Error('terms must be either an array or a set')
+            throw new Error('terms must be either an Array or a Set')
         }
 
         this._terms = new Set(terms)

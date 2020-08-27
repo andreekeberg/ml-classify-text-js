@@ -46,7 +46,7 @@ class Classifier {
      */
     train(input, label) {
         if (typeof input !== 'string' && !(input instanceof Array)) {
-            throw new Error('input must be either a string or array')
+            throw new Error('input must be either a string or Array')
         }
 
         if (typeof label !== 'string') {
@@ -172,7 +172,7 @@ class Classifier {
         let words = typeof input === 'string' ? this.splitWords(input) : input
 
         if (!(words instanceof Array)) {
-            throw new Error('input must be either a string or array')
+            throw new Error('input must be either a string or Array')
         }
         
         if (this._model.nGramMax < this._model.nGramMin) {
@@ -219,8 +219,8 @@ class Classifier {
             throw new Error('tokens must be an object literal')
         }
 
+        /* istanbul ignore next */
         if (this._model.vocabulary === false) {
-            /* istanbul ignore next */
             throw new Error('Cannot vectorize tokens when vocabulary is false')
         }
 
