@@ -74,7 +74,7 @@ class Model {
     /**
      * Minimum n-gram size
      *
-     * @type {number}
+     * @type {int}
      */
     get nGramMin() {
         return this._nGramMin
@@ -91,7 +91,7 @@ class Model {
     /**
      * Maximum n-gram size
      *
-     * @type {number}
+     * @type {int}
      */
     get nGramMax() {
         return this._nGramMax
@@ -108,7 +108,7 @@ class Model {
     /**
      * Minimum confidence required for predictions
      *
-     * @type {number}
+     * @type {float}
      */
     get minimumConfidence() {
         return this._minimumConfidence

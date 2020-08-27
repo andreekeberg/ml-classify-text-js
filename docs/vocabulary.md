@@ -4,12 +4,12 @@
 
 * [Vocabulary](#Vocabulary)
     * [new Vocabulary(terms)](#new_Vocabulary_new)
-    * [.size](#Vocabulary+size) : <code>number</code>
-    * [.terms](#Vocabulary+terms) : <code>Array</code> \| <code>Set</code>
-    * [.add(terms)](#Vocabulary+add) ⇒ <code>this</code>
-    * [.remove(terms)](#Vocabulary+remove) ⇒ <code>this</code>
-    * [.has(term)](#Vocabulary+has) ⇒ <code>bool</code>
-    * [.indexOf(term)](#Vocabulary+indexOf) ⇒ <code>number</code>
+    * [.size](#Vocabulary+size) : `number`
+    * [.terms](#Vocabulary+terms) : `Array` \| `Set`
+    * [.add(terms)](#Vocabulary+add) ⇒ `this`
+    * [.remove(terms)](#Vocabulary+remove) ⇒ `this`
+    * [.has(term)](#Vocabulary+has) ⇒ `bool`
+    * [.indexOf(term)](#Vocabulary+indexOf) ⇒ `number`
 
 <a name="new_Vocabulary_new"></a>
 
@@ -17,51 +17,51 @@
 
 | Param | Type |
 | --- | --- |
-| terms | <code>Array</code> \| <code>Set</code> | 
+| terms | `Array` \| `Set` | 
 
 <a name="Vocabulary+size"></a>
 
-### vocabulary.size : <code>number</code>
+### vocabulary.size : `number`
 Vocabulary size
 
 <a name="Vocabulary+terms"></a>
 
-### vocabulary.terms : <code>Array</code> \| <code>Set</code>
+### vocabulary.terms : `Array` \| `Set`
 Vocabulary terms
 
 <a name="Vocabulary+add"></a>
 
-### vocabulary.add(terms) ⇒ <code>this</code>
+### vocabulary.add(terms) ⇒ `this`
 Add one or more terms to the vocabulary
 
 | Param | Type |
 | --- | --- |
-| terms | <code>string</code> \| <code>Array</code> \| <code>Set</code> | 
+| terms | `string` \| `Array` \| `Set` | 
 
 <a name="Vocabulary+remove"></a>
 
-### vocabulary.remove(terms) ⇒ <code>this</code>
+### vocabulary.remove(terms) ⇒ `this`
 Remove one or more terms from the vocabulary
 
 | Param | Type |
 | --- | --- |
-| terms | <code>string</code> \| <code>Array</code> \| <code>Set</code> | 
+| terms | `string` \| `Array` \| `Set` | 
 
 <a name="Vocabulary+has"></a>
 
-### vocabulary.has(term) ⇒ <code>bool</code>
+### vocabulary.has(term) ⇒ `bool`
 Return whether the vocabulary contains a certain term
 
 | Param | Type |
 | --- | --- |
-| term | <code>string</code> | 
+| term | `string` | 
 
 <a name="Vocabulary+indexOf"></a>
 
-### vocabulary.indexOf(term) ⇒ <code>number</code>
+### vocabulary.indexOf(term) ⇒ `number`
 Return the index of a term in the vocabulary (returns -1 if not found)
 
 | Param | Type |
 | --- | --- |
-| term | <code>string</code> | 
+| term | `string` | 
 

@@ -4,12 +4,12 @@
 
 * [Model](#Model)
     * [new Model([config])](#new_Model_new)
-    * [.nGramMin](#Model+nGramMin) : <code>number</code>
-    * [.nGramMax](#Model+nGramMax) : <code>number</code>
-    * [.minimumConfidence](#Model+minimumConfidence) : <code>number</code>
-    * [.vocabulary](#Model+vocabulary) : <code>Vocabulary</code> \| <code>false</code>
-    * [.data](#Model+data) : <code>Object</code>
-    * [.serialize()](#Model+serialize) ⇒ <code>Object</code>
+    * [.nGramMin](#Model+nGramMin) : `int`
+    * [.nGramMax](#Model+nGramMax) : `int`
+    * [.minimumConfidence](#Model+minimumConfidence) : `float`
+    * [.vocabulary](#Model+vocabulary) : `Vocabulary` \| `false`
+    * [.data](#Model+data) : `Object`
+    * [.serialize()](#Model+serialize) ⇒ `Object`
 
 <a name="new_Model_new"></a>
 
@@ -17,41 +17,41 @@
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [config] | <code>Object</code> |  |  |
-| [config.nGramMin] | <code>int</code> | <code>1</code> | Minimum n-gram size |
-| [config.nGramMax] | <code>int</code> | <code>1</code> | Maximum n-gram size |
-| [config.minimumConfidence] | <code>int</code> \| <code>float</code> | <code>0.2</code> | Minimum confidence required for predictions |
-| [config.vocabulary] | <code>Array</code> \| <code>Set</code> \| <code>false</code> | <code>[]</code> | Terms mapped to indexes in the model data entries, set to false to store terms directly in the data entries |
-| [config.data] | <code>Object</code> | <code>{}</code> | Key-value store containing all training data |
+| [config] | `Object` |  |  |
+| [config.nGramMin] | `int` | `1` | Minimum n-gram size |
+| [config.nGramMax] | `int` | `1` | Maximum n-gram size |
+| [config.minimumConfidence] | `int` \| `float` | `0.2` | Minimum confidence required for predictions |
+| [config.vocabulary] | `Array` \| `Set` \| `false` | `[]` | Terms mapped to indexes in the model data entries, set to false to store terms directly in the data entries |
+| [config.data] | `Object` | `{}` | Key-value store containing all training data |
 
 <a name="Model+nGramMin"></a>
 
-### model.nGramMin : <code>number</code>
+### model.nGramMin : `int`
 Minimum n-gram size
 
 <a name="Model+nGramMax"></a>
 
-### model.nGramMax : <code>number</code>
+### model.nGramMax : `int`
 Maximum n-gram size
 
 <a name="Model+minimumConfidence"></a>
 
-### model.minimumConfidence : <code>number</code>
+### model.minimumConfidence : `float`
 Minimum confidence required for predictions
 
 <a name="Model+vocabulary"></a>
 
-### model.vocabulary : <code>Vocabulary</code> \| <code>false</code>
+### model.vocabulary : `Vocabulary` \| `false`
 Vocabulary instance
 
 <a name="Model+data"></a>
 
-### model.data : <code>Object</code>
+### model.data : `Object`
 Model data
 
 <a name="Model+serialize"></a>
 
-### model.serialize() ⇒ <code>Object</code>
+### model.serialize() ⇒ `Object`
 Return the model in its current state for storing, including the configured
 n-gram min/max values, the minimum confidence required for for predictions,
 the vocabulary as an array (if any, otherwise false), and an object literal

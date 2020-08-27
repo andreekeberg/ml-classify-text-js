@@ -3,15 +3,15 @@
 ## Prediction
 
 * [Prediction](#Prediction)
-    * [.label](#Prediction+label) : <code>string</code>
-    * [.confidence](#Prediction+confidence) : <code>number</code>
+    * [.label](#Prediction+label) : `string`
+    * [.confidence](#Prediction+confidence) : `number`
 
 <a name="Prediction+label"></a>
 
-### prediction.label : <code>string</code>
+### prediction.label : `string`
 Label of the prediction
 
 <a name="Prediction+confidence"></a>
 
-### prediction.confidence : <code>number</code>
+### prediction.confidence : `number`
 Confidence of the prediction

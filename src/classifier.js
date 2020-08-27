@@ -3,12 +3,12 @@ import Model from './model'
 import Prediction from './prediction'
 
 /**
- * @param {Model|Object} [model]
+ * @param {(Model|Object)} [model]
  * @param {int} [model.nGramMin=1] - Minimum n-gram size
  * @param {int} [model.nGramMax=1] - Maximum n-gram size
  * @param {(int|float)} [model.minimumConfidence=0.2] - Minimum confidence required for predictions
  * @param {(Array|Set|false)} [model.vocabulary=[]] - Terms mapped to indexes in the model data entries, set to false to store terms directly in the data entries
- * @param {int} [model.data={}] - Key-value store containing all training data
+ * @param {Object} [model.data={}] - Key-value store containing all training data
  * @constructor
  */
 class Classifier {
@@ -144,7 +144,6 @@ class Classifier {
      * 
      * @param {string} input
      * @return {Array}
-     * @private
      */
     splitWords(input) {
         if (typeof input !== 'string') {
@@ -166,7 +165,6 @@ class Classifier {
      *
      * @param {(string|string[])} input
      * @return {Object}
-     * @private
      */
     tokenize(input) {
         let words = typeof input === 'string' ? this.splitWords(input) : input
@@ -210,9 +208,8 @@ class Classifier {
      * translated to their index in the vocabulary (adding all terms to
      * the vocabulary that do not already exist)
      *
-     * @param {object} tokens
-     * @return {object}
-     * @private
+     * @param {Object} tokens
+     * @return {Object}
      */
     vectorize(tokens) {
         if (!(tokens instanceof Object) || tokens.constructor !== Object) {
@@ -247,7 +244,6 @@ class Classifier {
      * @param {Object} v1
      * @param {Object} v2
      * @return {float}
-     * @private
      */
     cosineSimilarity(v1, v2) {
         if (!(v1 instanceof Object) || v1.constructor !== Object) {
