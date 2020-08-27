@@ -5,7 +5,7 @@
 * [Classifier](#Classifier)
     * [new Classifier([model])](#new_Classifier_new)
     * [.model](#Classifier+model) : <code>Model</code>
-    * [.train([input], label)](#Classifier+train) ⇒ <code>this</code>
+    * [.train(input, label)](#Classifier+train) ⇒ <code>this</code>
     * [.predict(input, [maxMatches], [minimumConfidence])](#Classifier+predict) ⇒ <code>Array</code>
     * [.splitWords(input)](#Classifier+splitWords) ⇒ <code>Array</code>
     * [.tokenize(input)](#Classifier+tokenize) ⇒ <code>Object</code>
@@ -32,7 +32,7 @@ Model instance
 
 <a name="Classifier+train"></a>
 
-### classifier.train([input], label) ⇒ `this`
+### classifier.train(input, label) ⇒ `this`
 Train the current model using an input string (or array of strings) and a corresponding label
 
 | Param | Type | Description |

@@ -40,7 +40,7 @@ class Classifier {
     /**
      * Train the current model using an input string (or array of strings) and a corresponding label
      *
-     * @param {(string|string[])} [input] - String, or an array of strings
+     * @param {(string|string[])} input - String, or an array of strings
      * @param {string} label - Corresponding label
      * @return {this}
      */
