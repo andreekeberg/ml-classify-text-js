@@ -122,10 +122,10 @@ Returning:
 
 ```javascript
 {
-	'i really': 1,
-	'really dont': 1,
-	'dont like': 1,
-	'like it': 1
+    'i really': 1,
+    'really dont': 1,
+    'dont like': 1,
+    'like it': 1
 }
 ```
 
