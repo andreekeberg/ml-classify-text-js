@@ -1,4 +1,4 @@
-# Contributing to JavaScript Text Classifier
+# Contributing to ClassifyText
 
 This document contains basic guidelines to make contributing to this project as easy and transparent as possible, whether it's:
 

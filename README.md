@@ -1,4 +1,4 @@
-# 📄 JavaScript Text Classifier
+# 📄 ClassifyText (JS)
 
 [![Version](https://img.shields.io/npm/v/ml-classify-text)](https://www.npmjs.com/package/ml-classify-text) [![Total Downloads](https://img.shields.io/npm/dt/ml-classify-text)](https://www.npmjs.com/package/ml-classify-text) [![License](https://img.shields.io/npm/l/ml-classify-text)](https://www.npmjs.com/package/ml-classify-text)
 
@@ -190,4 +190,4 @@ Refer to the [changelog](CHANGELOG.md) for a full history of the project.
 
 ## License
 
-JavaScript Text Classifier is licensed under the [MIT license](LICENSE).
+ClassifyText is licensed under the [MIT license](LICENSE).
