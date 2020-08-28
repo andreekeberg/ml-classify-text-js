@@ -39,24 +39,6 @@ describe('Model', () => {
             })).to.throw(Error)
         })
 
-        it('should throw an error if minimumConfidence is not a number', () => {
-            expect(() => new Model({
-                minimumConfidence: 'test'
-            })).to.throw(Error)
-        })
-
-        it('should throw an error if minimumConfidence is lower than 0', () => {
-            expect(() => new Model({
-                minimumConfidence: -1
-            })).to.throw(Error)
-        })
-
-        it('should throw an error if minimumConfidence is higher than 1', () => {
-            expect(() => new Model({
-                minimumConfidence: 2
-            })).to.throw(Error)
-        })
-
         it('should throw an error if data is not an object literal', () => {
             expect(() => new Model({
                 data: []
@@ -129,54 +111,6 @@ describe('Model', () => {
         })
     })
 
-    describe('minimumConfidence', () => {
-        it('should return a number', () => {
-            const model = new Model()
-
-            expect(model.minimumConfidence).to.be.a('number')
-        })
-
-        it('should return the current minimumConfidence value', () => {
-            const model = new Model({
-                minimumConfidence: 0.5
-            })
-
-            expect(model.minimumConfidence).to.equal(0.5)
-        })
-
-        it('should set the minimumConfidence value', () => {
-            const model = new Model()
-
-            model.minimumConfidence = 0.1
-
-            expect(model.minimumConfidence).to.equal(0.1)
-        })
-
-        it('should throw an error if confidence is not a number', () => {
-            const model = new Model()
-
-            expect(() => {
-                model.minimumConfidence = 'test'
-            }).to.throw(Error)
-        })
-
-        it('should throw an error if confidence is lower than 0', () => {
-            const model = new Model()
-
-            expect(() => {
-                model.minimumConfidence = -1
-            }).to.throw(Error)
-        })
-
-        it('should throw an error if confidence is higher than 1', () => {
-            const model = new Model()
-
-            expect(() => {
-                model.minimumConfidence = 2
-            }).to.throw(Error)
-        })
-    })
-
     describe('vocabulary', () => {
         it('should return a vocabulary instance', () => {
             const model = new Model()
@@ -244,7 +178,6 @@ describe('Model', () => {
             expect(model.serialize()).to.eql({
                 nGramMin: 1,
                 nGramMax: 1,
-                minimumConfidence: 0.2,
                 vocabulary: [],
                 data: {}
             })

@@ -21,7 +21,6 @@
 | [model] | `Model` \| `Object` |  |  |
 | [model.nGramMin] | `int` | `1` | Minimum n-gram size |
 | [model.nGramMax] | `int` | `1` | Maximum n-gram size |
-| [model.minimumConfidence] | `int` \| `float` | `0.2` | Minimum confidence required for predictions |
 | [model.vocabulary] | `Array` \| `Set` \| `false` | `[]` | Terms mapped to indexes in the model data, set to `false` to store terms directly in the data entries |
 | [model.data] | `Object` | `{}` | Key-value store of labels and training data vectors |
 
@@ -49,7 +48,7 @@ Return an array of one or more Prediction instances
 | --- | --- | --- | --- |
 | input | `string` |  | Input string to make a prediction from |
 | [maxMatches] | `int` | `1` | Maximum number of predictions to return |
-| [minimumConfidence] | `float` | `null` | Minimum confidence required to include a prediction |
+| [minimumConfidence] | `float` | `0.2` | Minimum confidence required to include a prediction |
 
 <a name="Classifier+splitWords"></a>
 

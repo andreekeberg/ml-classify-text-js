@@ -328,6 +328,24 @@ describe('Classifier', () => {
             expect(() => classifier.predict([])).to.throw(Error)
         })
 
+        it('should throw an error if minimumConfidence is not a number', () => {
+            const classifier = new Classifier()
+
+            expect(() => classifier.predict('', null, '')).to.throw(Error)
+        })
+
+        it('should throw an error if minimumConfidence is lower than 0', () => {
+            const classifier = new Classifier()
+
+            expect(() => classifier.predict('', null, -1)).to.throw(Error)
+        })
+
+        it('should throw an error if minimumConfidence is higher than 1', () => {
+            const classifier = new Classifier()
+
+            expect(() => classifier.predict('', null, 2)).to.throw(Error)
+        })
+
         it('should return an array', () => {
             const classifier = new Classifier()
 

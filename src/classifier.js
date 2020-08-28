@@ -6,7 +6,6 @@ import Prediction from './prediction'
  * @param {(Model|Object)} [model]
  * @param {int} [model.nGramMin=1] - Minimum n-gram size
  * @param {int} [model.nGramMax=1] - Maximum n-gram size
- * @param {(int|float)} [model.minimumConfidence=0.2] - Minimum confidence required for predictions
  * @param {(Array|Set|false)} [model.vocabulary=[]] - Terms mapped to indexes in the model data entries, set to false to store terms directly in the data entries
  * @param {Object} [model.data={}] - Key-value store containing all training data
  * @constructor
@@ -94,22 +93,30 @@ class Classifier {
      *
      * @param {string} input - Input string to make a prediction from
      * @param {int} [maxMatches=1] Maximum number of predictions to return
-     * @param {float} [minimumConfidence=null] Minimum confidence required to include a prediction
+     * @param {float} [minimumConfidence=0.2] Minimum confidence required to include a prediction
      * @return {Array}
      */
-    predict(input, maxMatches = 1, minimumConfidence = null) {
+    predict(input, maxMatches = 1, minimumConfidence = 0.2) {
         if (typeof input !== 'string') {
             throw new Error('input must be a string')
+        }
+
+        if (typeof minimumConfidence !== 'number') {
+            throw new Error('minimumConfidence must be a number')
+        }
+
+        if (minimumConfidence < 0) {
+            throw new Error('minimumConfidence can not be lower than 0')
+        }
+
+        if (minimumConfidence > 1) {
+            throw new Error('minimumConfidence can not be higher than 1')
         }
 
         let tokens = this.tokenize(input)
 
         if (this.vocabulary !== false) {
             tokens = this.vectorize(tokens)
-        }
-
-        if (minimumConfidence === null) {
-            minimumConfidence = this.model.minimumConfidence
         }
 
         let predictions = []

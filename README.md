@@ -93,7 +93,6 @@ The following configuration options can be passed both directly to a new [Model]
 | --- | --- | --- | --- |
 | **nGramMin** | `int` | `1` | Minimum n-gram size |
 | **nGramMax** | `int` | `1` | Maximum n-gram size |
-| **minimumConfidence** | `int` \| `float` | `0.2` | Minimum confidence required for predictions |
 | **vocabulary** | `Array` \| `Set` \| `false` | `[]` | Terms mapped to indexes in the model data, set to `false` to store terms directly in the data entries |
 | **data** | `Object` | `{}` | Key-value store of labels and training data vectors |
 
@@ -147,7 +146,6 @@ Returning:
 {
     nGramMin: 1,
     nGramMax: 1,
-    minimumConfidence: 0.2,
     vocabulary: [
     	'this',    'is',      'great',
     	'so',      'cool',    'wow',

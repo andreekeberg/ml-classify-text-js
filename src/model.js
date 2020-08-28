@@ -4,7 +4,6 @@ import Vocabulary from './vocabulary'
  * @param {Object} [config]
  * @param {int} [config.nGramMin=1] - Minimum n-gram size
  * @param {int} [config.nGramMax=1] - Maximum n-gram size
- * @param {(int|float)} [config.minimumConfidence=0.2] - Minimum confidence required for predictions
  * @param {(Array|Set|false)} [config.vocabulary=[]] - Terms mapped to indexes in the model data entries, set to false to store terms directly in the data entries
  * @param {Object} [config.data={}] - Key-value store containing all training data
  * @constructor
@@ -18,7 +17,6 @@ class Model {
         config = {
             nGramMin: 1,
             nGramMax: 1,
-            minimumConfidence: 0.2,
             vocabulary: [],
             data: {},
             ...config
@@ -40,18 +38,6 @@ class Model {
             throw new Error('Config value nGramMax must be at least 1')
         }
 
-        if (typeof config.minimumConfidence !== 'number') {
-            throw new Error('Config value minimumConfidence must be a number')
-        }
-
-        if (config.minimumConfidence < 0) {
-            throw new Error('Config value minimumConfidence can not be lower than 0')
-        }
-
-        if (config.minimumConfidence > 1) {
-            throw new Error('Config value minimumConfidence can not be higher than 1')
-        }
-
         if (config.nGramMax < config.nGramMin) {
             throw new Error('Invalid nGramMin/nGramMax combination in config')
         }
@@ -66,7 +52,6 @@ class Model {
 
         this._nGramMin = config.nGramMin
         this._nGramMax = config.nGramMax
-        this._minimumConfidence = config.minimumConfidence
         this._vocabulary = config.vocabulary
         this._data = {...config.data}
     }
@@ -106,31 +91,6 @@ class Model {
     }
 
     /**
-     * Minimum confidence required for predictions
-     *
-     * @type {float}
-     */
-    get minimumConfidence() {
-        return this._minimumConfidence
-    }
-
-    set minimumConfidence(confidence) {
-        if (typeof confidence !== 'number') {
-            throw new Error('minimumConfidence must be a number')
-        }
-
-        if (confidence < 0) {
-            throw new Error('minimumConfidence can not be lower than 0')
-        }
-
-        if (confidence > 1) {
-            throw new Error('minimumConfidence can not be higher than 1')
-        }
-
-        this._minimumConfidence = confidence
-    }
-
-    /**
      * Vocabulary instance 
      *
      * @type {(Vocabulary|false)}
@@ -165,10 +125,9 @@ class Model {
     }
 
     /**
-     * Return the model in its current state for storing, including the configured
-     * n-gram min/max values, the minimum confidence required for for predictions,
-     * the vocabulary as an array (if any, otherwise false),and an object literal
-     * with all the training data
+     * Return the model in its current state an an object literal, including the
+     * configured n-gram min/max values, the vocabulary as an array (if any,
+     * otherwise false), and an object literal with all the training data
      *
      * @return {Object}
      */
@@ -176,7 +135,6 @@ class Model {
         return {
             nGramMin: this._nGramMin,
             nGramMax: this._nGramMax,
-            minimumConfidence: this._minimumConfidence,
             vocabulary: Array.from(this._vocabulary.terms),
             data: this._data
         }
