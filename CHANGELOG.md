@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Breaking changes
 
-* Removed minimumConfidence from Model
+* Removed `minimumConfidence` from `Model`
 
 ## [1.0.0] - 2020-08-26
 
