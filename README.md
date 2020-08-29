@@ -130,7 +130,7 @@ Returning:
 
 ### Serializing a model
 
-After training a model with large sets of data, you'll want to store all this data, to allow you to simply set up a new model using this training data at another time, and quicky make predictions.
+After training a model with large sets of data, you'll want to store all this data, to allow you to simply set up a new model using this training data at another time, and quickly make predictions.
 
 To do this, simply use the `serialize` method on your [Model](docs/model.md), and either save the data structure to a file, send it to a server, or store it in any other way you want.
 
