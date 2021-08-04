@@ -68,7 +68,7 @@ class Classifier {
                 tokens = this.vectorize(tokens)
             }
 
-            // Set up an empty entry for the label if it does not exist 
+            // Set up an empty entry for the label if it does not exist
             if (typeof this._model.data[label] === 'undefined') {
                 this._model.data[label] = {}
             }
@@ -148,7 +148,7 @@ class Classifier {
 
     /**
      * Split a string into an array of lowercase words, with all non-letter characters removed
-     * 
+     *
      * @param {string} input
      * @return {Array}
      */
@@ -179,7 +179,7 @@ class Classifier {
         if (!(words instanceof Array)) {
             throw new Error('input must be either a string or Array')
         }
-        
+
         if (this._model.nGramMax < this._model.nGramMin) {
             throw new Error('Invalid nGramMin/nGramMax combination in model config')
         }
@@ -190,22 +190,28 @@ class Classifier {
         // based on the models configured min/max values
         words.forEach((word, index) => {
             let sequence = ''
+            let tokenCount = 0
+            let nextWord
 
-            words.slice(index).forEach(nextWord => {
+            // Create n-gram(s) of between nGramMin and nGramMax words from segment starting at (index)
+            // Increment the occurrence counter (tokens[sequence]) for each n-gram created
+            // Stop looping once we have nGramMax words (or reach the end of the segment)
+            let segment = words.slice(index)
+            while (tokenCount < this._model.nGramMax && tokenCount < segment.length) {
+                nextWord = segment[tokenCount]
                 sequence += sequence ? (' ' + nextWord) : nextWord
-                let tokenCount = sequence.split(' ').length
+                tokenCount++
+                if(tokenCount >= this._model.nGramMin && tokenCount <= this._model.nGramMax) {
+                    if (typeof tokens[sequence] === 'undefined') {
+                        tokens[sequence] = 0
+                    }
 
-                if (tokenCount < this._model.nGramMin || tokenCount > this._model.nGramMax) {
-                    return
+                    ++tokens[sequence]
                 }
-
-                if (typeof tokens[sequence] === 'undefined') {
-                    tokens[sequence] = 0
-                }
-
-                ++tokens[sequence]
-            })
+            }
         })
+
+
 
         return tokens
     }

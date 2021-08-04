@@ -74,7 +74,7 @@ describe('Classifier', () => {
             const classifier = new Classifier()
 
             classifier.model.nGramMin = 2
-            
+
             expect(() => classifier.tokenize('Hello world!')).to.throw(Error)
         })
 
@@ -126,6 +126,16 @@ describe('Classifier', () => {
                 'hello': 1,
                 'hello world': 1,
                 'world': 1
+            })
+        })
+
+        it('should create a unigrams for the space character from an array of characters including a space', () => {
+            const classifier = new Classifier()
+
+            expect(classifier.tokenize([' ','a','b'])).to.eql({
+                ' ': 1,
+                'a': 1,
+                'b': 1
             })
         })
 
@@ -195,7 +205,7 @@ describe('Classifier', () => {
 
             expect(() => classifier.train('test', [])).to.throw(Error)
         })
-        
+
         it('should add tokens to the vocabulary (if not configured to false)', () => {
             const classifier = new Classifier()
 
@@ -254,7 +264,7 @@ describe('Classifier', () => {
             expect(classifier.train('hello world', 'test')).to.equal(classifier)
         })
     })
-    
+
     describe('cosineSimilarity', () => {
         it('should throw an error if v1 is not an object literal', () => {
             const classifier = new Classifier()
