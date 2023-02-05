@@ -2,19 +2,19 @@
 
 This document contains basic guidelines to make contributing to this project as easy and transparent as possible, whether it's:
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
+-   Reporting a bug
+-   Discussing the current state of the code
+-   Submitting a fix
+-   Proposing new features
+-   Becoming a maintainer
 
 ## Pull requests are actively welcomed
 
 1. Fork the repo and create your branch from `master`.
 2. If you've added code that should be tested, add tests.
 3. If you've changed APIs, update the documentation.
-5. Make sure your code lints.
-6. Issue your pull request.
+4. Make sure your code lints.
+5. Issue your pull request.
 
 ## Any contributions you make will be under the MIT Software License
 
@@ -28,13 +28,13 @@ All bugs are tracked using GitHub issues to track public bugs. Report a bug by [
 
 **Great bug reports** tend to have:
 
-- A quick summary and/or background
-- Steps to reproduce
-  - Be specific!
-  - Give sample code if you can.
-  - What you expected would happen
-  - What actually happens
-- Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
+-   A quick summary and/or background
+-   Steps to reproduce
+    -   Be specific!
+    -   Give sample code if you can.
+    -   What you expected would happen
+    -   What actually happens
+-   Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
 ## License
 
