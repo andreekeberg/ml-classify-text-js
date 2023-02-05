@@ -2,7 +2,7 @@
 
 Full documentation of all the available classes, properties and methods.
 
-* [Classifier](classifier.md)
-* [Model](model.md)
-* [Vocabulary](vocabulary.md)
-* [Prediction](prediction.md)
+-   [Classifier](Classifier.md)
+-   [Model](Model.md)
+-   [Vocabulary](Vocabulary.md)
+-   [Prediction](Prediction.md)

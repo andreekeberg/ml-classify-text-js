@@ -14,5 +14,5 @@ jspm_packages
 .idea
 lib
 package-lock.json
-yarn.lock
 .DS_Store
+Thumbs.db
