@@ -85,7 +85,7 @@ positive (0.5423261445466404)
 
 ### Configuration
 
-The following configuration options can be passed both directly to a new [Model](docs/model.md), or indirectly by passing it to the [Classifier](docs/classifier.md) constructor.
+The following configuration options can be passed both directly to a new [Model](docs/Model.md), or indirectly by passing it to the [Classifier](docs/Classifier.md) constructor.
 
 #### Options
 
@@ -132,7 +132,7 @@ Returning:
 
 After training a model with large sets of data, you'll want to store all this data, to allow you to simply set up a new model using this training data at another time, and quickly make predictions.
 
-To do this, simply use the `serialize` method on your [Model](docs/model.md), and either save the data structure to a file, send it to a server, or store it in any other way you want.
+To do this, simply use the `serialize` method on your [Model](docs/Model.md), and either save the data structure to a file, send it to a server, or store it in any other way you want.
 
 ```javascript
 const model = classifier.model
