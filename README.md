@@ -45,16 +45,16 @@ const classifier = new Classifier()
 ### Training a model
 
 ```javascript
-let positive = [
-    'This is great, so cool!',
-    'Wow, I love it!',
-    'It really is amazing',
+const positive = [
+	'This is great, so cool!',
+	'Wow, I love it!',
+	'It really is amazing'
 ]
 
-let negative = [
-    'This is really bad',
-    'I hate it with a passion',
-    'Just terrible!',
+const negative = [
+	'This is really bad',
+	'I hate it with a passion',
+	'Just terrible!'
 ]
 
 classifier.train(positive, 'positive')
@@ -64,10 +64,10 @@ classifier.train(negative, 'negative')
 ### Getting a prediction
 
 ```javascript
-let predictions = classifier.predict('It sure is pretty great!')
+const predictions = classifier.predict('It sure is pretty great!')
 
 if (predictions.length) {
-	predictions.forEach(prediction => {
+	predictions.forEach((prediction) => {
 		console.log(`${prediction.label} (${prediction.confidence})`)
 	})
 } else {
@@ -89,12 +89,12 @@ The following configuration options can be passed both directly to a new [Model]
 
 #### Options
 
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| **nGramMin** | `int` | `1` | Minimum n-gram size |
-| **nGramMax** | `int` | `1` | Maximum n-gram size |
-| **vocabulary** | `Array` \| `Set` \| `false` | `[]` | Terms mapped to indexes in the model data, set to `false` to store terms directly in the data entries |
-| **data** | `Object` | `{}` | Key-value store of labels and training data vectors |
+| Property       | Type                        | Default | Description                                                                                           |
+| -------------- | --------------------------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| **nGramMin**   | `int`                       | `1`     | Minimum n-gram size                                                                                   |
+| **nGramMax**   | `int`                       | `1`     | Maximum n-gram size                                                                                   |
+| **vocabulary** | `Array` \| `Set` \| `false` | `[]`    | Terms mapped to indexes in the model data, set to `false` to store terms directly in the data entries |
+| **data**       | `Object`                    | `{}`    | Key-value store of labels and training data vectors                                                   |
 
 ### Using n-grams
 
@@ -112,7 +112,7 @@ const classifier = new Classifier({
 	nGramMax: 2
 })
 
-let tokens = classifier.tokenize('I really dont like it')
+const tokens = classifier.tokenize('I really dont like it')
 
 console.log(tokens)
 ```
@@ -135,7 +135,7 @@ After training a model with large sets of data, you'll want to store all this da
 To do this, simply use the `serialize` method on your [Model](docs/model.md), and either save the data structure to a file, send it to a server, or store it in any other way you want.
 
 ```javascript
-let model = classifier.model
+const model = classifier.model
 
 console.log(model.serialize())
 ```
@@ -173,10 +173,10 @@ Returning:
 
 ## Documentation
 
-* [Classifier](docs/classifier.md)
-* [Model](docs/model.md)
-* [Vocabulary](docs/vocabulary.md)
-* [Prediction](docs/prediction.md)
+-   [Classifier](docs/Classifier.md)
+-   [Model](docs/Model.md)
+-   [Vocabulary](docs/Vocabulary.md)
+-   [Prediction](docs/Prediction.md)
 
 ## Contributing
 
