@@ -9,7 +9,7 @@
 		"test": "jest --coverage",
 		"test:watch": "jest --watchAll",
 		"test:prod": "cross-env BABEL_ENV=production npm run test",
-		"lint": "eslint src test",
+		"lint": "biome lint src test",
 		"build": "webpack --mode=production --config=webpack.config.js",
 		"prepublish": "npm run clean && npm run lint && npm run test && npm run build"
 	},
@@ -54,7 +54,8 @@
 		"jsdoc": "^4.0.0",
 		"jsdoc-to-markdown": "^8.0.0",
 		"rimraf": "^4.1.2",
-		"tsup": "^8.0.2"
+		"tsup": "^8.0.2",
+		"vitest": "^1.4.0"
 	},
 	"dependencies": {
 		"xregexp": "^5.1.1"

@@ -217,7 +217,8 @@ export class Classifier {
 		words.forEach((word, index) => {
 			let sequence = "";
 
-			for (const nextWord of words.slice(index)) {
+			// biome-ignore lint/complexity/noForEach: Complications when using for of loop
+			words.slice(index).forEach((nextWord) => {
 				sequence += sequence ? ` ${nextWord}` : nextWord;
 				const tokenCount = sequence.split(" ").length;
 
@@ -233,7 +234,7 @@ export class Classifier {
 				}
 
 				++tokens[sequence];
-			}
+			});
 		});
 
 		return tokens;

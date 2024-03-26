@@ -1,3 +1,4 @@
+import { describe, test, expect } from "vitest";
 import { Vocabulary } from "../src/Vocabulary.js";
 
 describe("Vocabulary", () => {

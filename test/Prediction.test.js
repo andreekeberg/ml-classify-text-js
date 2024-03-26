@@ -1,3 +1,4 @@
+import { describe, test, expect } from "vitest";
 import { Prediction } from "../src/Prediction.js";
 
 describe("Prediction", () => {

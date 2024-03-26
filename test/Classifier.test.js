@@ -1,3 +1,5 @@
+import { describe, test, expect } from "vitest";
+
 import { Classifier } from "../src/Classifier.js";
 import { Model } from "../src/Model.js";
 

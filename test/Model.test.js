@@ -1,3 +1,5 @@
+import { describe, test, expect } from "vitest";
+
 import { Model } from "../src/Model.js";
 import { Vocabulary } from "../src/Vocabulary.js";
 
