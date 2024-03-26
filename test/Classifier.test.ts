@@ -1,4 +1,4 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, assert } from "vitest";
 
 import { Classifier } from "../src/Classifier.js";
 import { Model } from "../src/Model.js";
@@ -44,6 +44,7 @@ describe("Classifier", () => {
 		test("should set the current model to a new model instance when passed an object literal", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error setter type issue
 			classifier.model = {};
 
 			expect(classifier.model).toBeInstanceOf(Model);
@@ -54,6 +55,7 @@ describe("Classifier", () => {
 		test("should throw an error if input is not a string", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.splitWords(1)).toThrow(Error);
 		});
 
@@ -71,6 +73,7 @@ describe("Classifier", () => {
 		test("should throw an error if input is neither a string or array", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.tokenize({})).toThrow(Error);
 		});
 
@@ -140,12 +143,23 @@ describe("Classifier", () => {
 				hello: 2,
 			});
 		});
+
+		test("should create a unigrams for the space character from an array of characters including a space", () => {
+			const classifier = new Classifier();
+
+			expect(classifier.tokenize([" ", "a", "b"])).toEqual({
+				" ": 1,
+				a: 1,
+				b: 1,
+			});
+		});
 	});
 
 	describe("vectorize", () => {
 		test("should throw an error if input is not an object literal", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Error checking
 			expect(() => classifier.vectorize([])).toThrow(Error);
 		});
 
@@ -195,12 +209,14 @@ describe("Classifier", () => {
 		test("should throw an error if input is not a string or array", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.train({}, "test")).toThrow(Error);
 		});
 
 		test("should throw an error if label is not a string", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.train("test", [])).toThrow(Error);
 		});
 
@@ -211,6 +227,7 @@ describe("Classifier", () => {
 
 			const vocabulary = classifier.model.vocabulary;
 
+			assert(vocabulary);
 			expect(vocabulary.size).toStrictEqual(2);
 		});
 
@@ -261,12 +278,14 @@ describe("Classifier", () => {
 		test("should throw an error if v1 is not an object literal", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.cosineSimilarity(false, {})).toThrow(Error);
 		});
 
 		test("should throw an error if v2 is not an object literal", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.cosineSimilarity({}, false)).toThrow(Error);
 		});
 
@@ -352,18 +371,21 @@ describe("Classifier", () => {
 		test("should throw an error if input is not a string", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.predict([])).toThrow(Error);
 		});
 
 		test("should throw an error if maxMatches is not a number", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.predict("", "test")).toThrow(Error);
 		});
 
 		test("should throw an error if minimumConfidence is not a number", () => {
 			const classifier = new Classifier();
 
+			// @ts-expect-error Invalid type check
 			expect(() => classifier.predict("", undefined, "test")).toThrow(Error);
 		});
 
@@ -419,6 +441,7 @@ describe("Classifier", () => {
 			classifier.train("hello world", "test");
 			classifier.predict("hello foo world");
 
+			assert(classifier.model.vocabulary);
 			expect(classifier.model.vocabulary.has("foo")).toStrictEqual(false);
 		});
 	});

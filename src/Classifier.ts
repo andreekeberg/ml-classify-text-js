@@ -217,27 +217,30 @@ export class Classifier {
 
 		// Generate a list of n-grams along with their respective occurrences
 		// based on the models configured min/max values
-		words.forEach((word, index) => {
+		words.forEach((_, index) => {
 			let sequence = "";
+			let tokenCount = 0;
+			let nextWord: string;
 
-			// biome-ignore lint/complexity/noForEach: Complications when using for of loop
-			words.slice(index).forEach((nextWord) => {
+			// Create n-gram(s) of between nGramMin and nGramMax words from segment starting at (index)
+			// Increment the occurrence counter (tokens[sequence]) for each n-gram created
+			// Stop looping once we have nGramMax words (or reach the end of the segment)
+			const segment = words.slice(index);
+			while (tokenCount < this._model.nGramMax && tokenCount < segment.length) {
+				nextWord = segment[tokenCount];
 				sequence += sequence ? ` ${nextWord}` : nextWord;
-				const tokenCount = sequence.split(" ").length;
-
+				tokenCount++;
 				if (
-					tokenCount < this._model.nGramMin ||
-					tokenCount > this._model.nGramMax
+					tokenCount >= this._model.nGramMin &&
+					tokenCount <= this._model.nGramMax
 				) {
-					return;
-				}
+					if (typeof tokens[sequence] === "undefined") {
+						tokens[sequence] = 0;
+					}
 
-				if (!Object.prototype.hasOwnProperty.call(tokens, sequence)) {
-					tokens[sequence] = 0;
+					++tokens[sequence];
 				}
-
-				++tokens[sequence];
-			});
+			}
 		});
 
 		return tokens;
