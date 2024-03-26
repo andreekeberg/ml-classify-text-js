@@ -134,12 +134,12 @@ export class Model {
 		return this._vocabulary;
 	}
 
-	set vocabulary(vocabulary) {
-		if (vocabulary !== false && !(vocabulary instanceof Vocabulary)) {
-			vocabulary = new Vocabulary(vocabulary);
+	set vocabulary(v: Vocabulary | false) {
+		if (v !== false && !(v instanceof Vocabulary)) {
+			v = new Vocabulary(v);
 		}
 
-		this._vocabulary = vocabulary;
+		this._vocabulary = v;
 	}
 
 	/**

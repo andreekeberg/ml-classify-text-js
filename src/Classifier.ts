@@ -6,9 +6,6 @@ import { Vocabulary } from "./Vocabulary.js";
 export class Classifier {
 	private _model: Model;
 
-	/**
-	 * @param {Model | Partial<import('./Model.js').ModelConfig>} model
-	 */
 	constructor(model: Model | Partial<ModelConfig> = {}) {
 		if (!(model instanceof Model)) {
 			model = new Model(model);
@@ -30,7 +27,7 @@ export class Classifier {
 		return this._model;
 	}
 
-	set model(model) {
+	set model(model: Model) {
 		if (!(model instanceof Model)) {
 			model = new Model(model);
 		}
