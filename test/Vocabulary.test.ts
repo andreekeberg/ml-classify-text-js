@@ -4,6 +4,7 @@ import { Vocabulary } from "../src/Vocabulary.js";
 describe("Vocabulary", () => {
 	describe("constructor", () => {
 		test("should throw an error if terms is not an array or set", () => {
+			// @ts-expect-error Error check
 			expect(() => new Vocabulary({})).toThrow(Error);
 		});
 	});
@@ -55,6 +56,7 @@ describe("Vocabulary", () => {
 			const vocabulary = new Vocabulary();
 
 			expect(() => {
+				// @ts-expect-error Error check
 				vocabulary.terms = {};
 			}).toThrow(Error);
 		});
@@ -64,6 +66,7 @@ describe("Vocabulary", () => {
 		test("should throw an error if terms is not a string, array or set", () => {
 			const vocabulary = new Vocabulary();
 
+			// @ts-expect-error Error check
 			expect(() => vocabulary.add({})).toThrow(Error);
 		});
 
@@ -102,6 +105,7 @@ describe("Vocabulary", () => {
 		test("should throw an error if terms is not a string, array or set", () => {
 			const vocabulary = new Vocabulary();
 
+			// @ts-expect-error Error check
 			expect(() => vocabulary.remove({})).toThrow(Error);
 		});
 

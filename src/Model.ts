@@ -1,15 +1,24 @@
 import { Vocabulary } from "./Vocabulary.js";
 
-/**
- * @typedef {Record<string, Record<string, number>>} ModelData
- * @typedef {{ nGramMin: number, nGramMax: number, vocabulary: string[] | Set<string> | false, data: ModelData }} ModelConfig
- */
+export type ModelData = Record<string, Record<string, number>>;
+
+export type ModelConfig = {
+	nGramMin: number;
+	nGramMax: number;
+	vocabulary: string[] | Set<string> | false;
+	data: ModelData;
+};
 
 export class Model {
+	private _nGramMin: number;
+	private _nGramMax: number;
+	private _data: { [x: string]: Record<string, number> };
+	private _vocabulary: Vocabulary | false;
+
 	/**
 	 * @param {Partial<ModelConfig>} config
 	 */
-	constructor(config = {}) {
+	constructor(config: Partial<ModelConfig> = {}) {
 		if (Object.getPrototypeOf(config) !== Object.prototype) {
 			throw new Error("config must be an object literal");
 		}

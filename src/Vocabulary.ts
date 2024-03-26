@@ -1,8 +1,10 @@
 export class Vocabulary {
+	private _terms: Set<string>;
+
 	/**
 	 * @param {Array<string>|Set<string>} terms
 	 */
-	constructor(terms = []) {
+	constructor(terms: Array<string> | Set<string> = []) {
 		if (!Array.isArray(terms) && !(terms instanceof Set)) {
 			throw new Error("terms must be either an Array or a Set");
 		}
@@ -32,7 +34,7 @@ export class Vocabulary {
 		return this._terms;
 	}
 
-	set terms(terms) {
+	set terms(terms: Set<string> | string[]) {
 		if (!Array.isArray(terms) && !(terms instanceof Set)) {
 			throw new Error("terms must be either an Array or a Set");
 		}
@@ -46,7 +48,7 @@ export class Vocabulary {
 	 * @param {(string|Array<string>|Set<string>)} terms
 	 * @return {this}
 	 */
-	add(terms) {
+	add(terms: string | Array<string> | Set<string>): this {
 		if (
 			typeof terms !== "string" &&
 			!Array.isArray(terms) &&
@@ -74,7 +76,7 @@ export class Vocabulary {
 	 * @param {(string|Array<string>|Set<string>)} terms
 	 * @return {this}
 	 */
-	remove(terms) {
+	remove(terms: string | Array<string> | Set<string>): this {
 		if (
 			typeof terms !== "string" &&
 			!Array.isArray(terms) &&
@@ -102,7 +104,7 @@ export class Vocabulary {
 	 * @param {string} term
 	 * @return {boolean}
 	 */
-	has(term) {
+	has(term: string): boolean {
 		return this._terms.has(term);
 	}
 
@@ -112,7 +114,7 @@ export class Vocabulary {
 	 * @param {string} term
 	 * @return {number}
 	 */
-	indexOf(term) {
+	indexOf(term: string): number {
 		if (!this._terms.has(term)) {
 			return -1;
 		}

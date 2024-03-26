@@ -1,13 +1,15 @@
 import XRegExp from "xregexp";
-import { Model } from "./Model.js";
+import { Model, type ModelConfig } from "./Model.js";
 import { Prediction } from "./Prediction.js";
 import { Vocabulary } from "./Vocabulary.js";
 
 export class Classifier {
+	private _model: Model;
+
 	/**
 	 * @param {Model | Partial<import('./Model.js').ModelConfig>} model
 	 */
-	constructor(model = {}) {
+	constructor(model: Model | Partial<ModelConfig> = {}) {
 		if (!(model instanceof Model)) {
 			model = new Model(model);
 		}
@@ -43,7 +45,7 @@ export class Classifier {
 	 * @param {string} label - Corresponding label
 	 * @return {this}
 	 */
-	train(input, label) {
+	train(input: string | string[], label: string): this {
 		if (typeof input !== "string" && !Array.isArray(input)) {
 			throw new Error("input must be either a string or Array");
 		}
@@ -101,7 +103,11 @@ export class Classifier {
 	 * @param {string} input
 	 * @return {Array<Prediction>}
 	 */
-	predict(input, maxMatches = 1, minimumConfidence = 0.2) {
+	predict(
+		input: string,
+		maxMatches = 1,
+		minimumConfidence = 0.2
+	): Array<Prediction> {
 		if (typeof input !== "string") {
 			throw new Error("input must be a string");
 		}
@@ -137,7 +143,7 @@ export class Classifier {
 		/**
 		 * @type {Prediction[]}
 		 */
-		const predictions = [];
+		const predictions: Prediction[] = [];
 
 		for (const label of Object.keys(this._model.data)) {
 			const entry = this._model.data[label];
@@ -171,7 +177,7 @@ export class Classifier {
 	 * @param {string} input
 	 * @return {string[]}
 	 */
-	splitWords(input) {
+	splitWords(input: string): string[] {
 		if (typeof input !== "string") {
 			throw new Error("input must be a string");
 		}
@@ -196,7 +202,7 @@ export class Classifier {
 	 * @param {(string|string[])} input
 	 * @return {Record<string, number>}
 	 */
-	tokenize(input) {
+	tokenize(input: string | string[]): Record<string, number> {
 		const words = typeof input === "string" ? this.splitWords(input) : input;
 
 		if (!Array.isArray(words)) {
@@ -210,7 +216,7 @@ export class Classifier {
 		/**
 		 * @type {Record<string, number>}
 		 */
-		const tokens = {};
+		const tokens: Record<string, number> = {};
 
 		// Generate a list of n-grams along with their respective occurrences
 		// based on the models configured min/max values
@@ -248,7 +254,10 @@ export class Classifier {
 	 * @param {Record<string, number>} tokens
 	 * @return {{vector: Record<string, number>, vocabulary: Vocabulary}}
 	 */
-	vectorize(tokens) {
+	vectorize(tokens: Record<string, number>): {
+		vector: Record<string, number>;
+		vocabulary: Vocabulary;
+	} {
 		if (Object.getPrototypeOf(tokens) !== Object.prototype) {
 			throw new Error("tokens must be an object literal");
 		}
@@ -261,7 +270,7 @@ export class Classifier {
 		/**
 		 * @type {Record<string, number>}
 		 */
-		const vector = {};
+		const vector: Record<string, number> = {};
 		const vocabulary = new Vocabulary(this._model.vocabulary.terms);
 
 		for (const token of Object.keys(tokens)) {
@@ -289,7 +298,10 @@ export class Classifier {
 	 * @param {Record<string, number>} v2
 	 * @return {number}
 	 */
-	cosineSimilarity(v1, v2) {
+	cosineSimilarity(
+		v1: Record<string, number>,
+		v2: Record<string, number>
+	): number {
 		if (Object.getPrototypeOf(v1) !== Object.prototype) {
 			throw new Error("v1 must be an object literal");
 		}
