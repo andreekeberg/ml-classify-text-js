@@ -11,5 +11,8 @@
 				"noParameterAssign": "off"
 			}
 		}
+	},
+	"files": {
+		"ignore": ["dist/*"]
 	}
 }

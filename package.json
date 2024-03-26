@@ -3,18 +3,16 @@
 	"version": "2.0.1",
 	"description": "Text classification using n-grams and cosine similarity",
 	"type": "module",
-	"main": "./lib",
 	"scripts": {
-		"clean": "rimraf lib",
-		"test": "jest --coverage",
-		"test:watch": "jest --watchAll",
-		"test:prod": "cross-env BABEL_ENV=production npm run test",
+		"clean": "rimraf dist",
+		"test": "vitest run",
+		"test:watch": "vitest",
 		"lint": "biome lint src test",
-		"build": "webpack --mode=production --config=webpack.config.js",
+		"build": "tsup src/index.js --format esm,cjs",
 		"prepublish": "npm run clean && npm run lint && npm run test && npm run build"
 	},
 	"files": [
-		"lib"
+		"dist"
 	],
 	"repository": {
 		"type": "git",
@@ -55,6 +53,7 @@
 		"jsdoc-to-markdown": "^8.0.0",
 		"rimraf": "^4.1.2",
 		"tsup": "^8.0.2",
+		"typescript": "^5.4.3",
 		"vitest": "^1.4.0"
 	},
 	"dependencies": {
