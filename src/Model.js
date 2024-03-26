@@ -1,14 +1,14 @@
-import Vocabulary from './Vocabulary'
+import { Vocabulary } from './Vocabulary.js'
 
 /**
- * @param {Object} [config]
- * @param {int} [config.nGramMin=1] - Minimum n-gram size
- * @param {int} [config.nGramMax=1] - Maximum n-gram size
- * @param {(Array|Set|false)} [config.vocabulary=[]] - Terms mapped to indexes in the model data entries, set to false to store terms directly in the data entries
- * @param {Object} [config.data={}] - Key-value store containing all training data
- * @constructor
+ * @typedef {Record<string, Record<string, number>>} ModelData
+ * @typedef {{ nGramMin: number, nGramMax: number, vocabulary: string[] | Set<string> | false, data: ModelData }} ModelConfig
  */
-class Model {
+
+export class Model {
+	/**
+	 * @param {Partial<ModelConfig>} config
+	 */
 	constructor(config = {}) {
 		if (Object.getPrototypeOf(config) !== Object.prototype) {
 			throw new Error('config must be an object literal')
@@ -22,11 +22,11 @@ class Model {
 			...config
 		}
 
-		if (config.nGramMin !== parseInt(config.nGramMin, 10)) {
+		if (config.nGramMin !== parseInt(String(config.nGramMin), 10)) {
 			throw new Error('Config value nGramMin must be an integer')
 		}
 
-		if (config.nGramMax !== parseInt(config.nGramMax, 10)) {
+		if (config.nGramMax !== parseInt(String(config.nGramMax), 10)) {
 			throw new Error('Config value nGramMax must be an integer')
 		}
 
@@ -46,30 +46,53 @@ class Model {
 			config.vocabulary !== false &&
 			!(config.vocabulary instanceof Vocabulary)
 		) {
-			config.vocabulary = new Vocabulary(config.vocabulary)
+			/**
+			 * @type {Vocabulary|false}
+			 * @private
+			 */
+			this._vocabulary = new Vocabulary(config.vocabulary)
+		} else {
+			/**
+			 * @type {Vocabulary|false}
+			 * @private
+			 */
+			this._vocabulary = config.vocabulary
 		}
 
 		if (Object.getPrototypeOf(config.data) !== Object.prototype) {
 			throw new Error('Config value data must be an object literal')
 		}
 
+		/**
+		 * @type {number}
+		 * @private
+		 */
 		this._nGramMin = config.nGramMin
+
+		/**
+		 * @type {number}
+		 * @private
+		 */
 		this._nGramMax = config.nGramMax
-		this._vocabulary = config.vocabulary
+
+		/**
+		 * @type {ModelData}
+		 * @private
+		 */
 		this._data = { ...config.data }
 	}
 
 	/**
 	 * Minimum n-gram size
 	 *
-	 * @type {int}
+	 * @type {number}
 	 */
 	get nGramMin() {
 		return this._nGramMin
 	}
 
 	set nGramMin(size) {
-		if (size !== parseInt(size, 10)) {
+		if (size !== parseInt(String(size), 10)) {
 			throw new Error('nGramMin must be an integer')
 		}
 
@@ -79,14 +102,14 @@ class Model {
 	/**
 	 * Maximum n-gram size
 	 *
-	 * @type {int}
+	 * @type {number}
 	 */
 	get nGramMax() {
 		return this._nGramMax
 	}
 
 	set nGramMax(size) {
-		if (size !== parseInt(size, 10)) {
+		if (size !== parseInt(String(size), 10)) {
 			throw new Error('nGramMax must be an integer')
 		}
 
@@ -113,7 +136,7 @@ class Model {
 	/**
 	 * Model data
 	 *
-	 * @type {Object}
+	 * @type {ModelData}
 	 */
 	get data() {
 		return this._data
@@ -132,16 +155,16 @@ class Model {
 	 * configured n-gram min/max values, the vocabulary as an array (if any,
 	 * otherwise false), and an object literal with all the training data
 	 *
-	 * @return {Object}
+	 * @return {ModelConfig}
 	 */
 	serialize() {
 		return {
 			nGramMin: this._nGramMin,
 			nGramMax: this._nGramMax,
-			vocabulary: Array.from(this._vocabulary.terms),
+			vocabulary: this._vocabulary
+				? Array.from(this._vocabulary.terms)
+				: false,
 			data: this._data
 		}
 	}
 }
-
-export default Model

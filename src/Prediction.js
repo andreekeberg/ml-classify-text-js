@@ -1,22 +1,23 @@
-/**
- * @param {Object} prediction
- * @constructor
- * @hideconstructor
- */
-class Prediction {
+export class Prediction {
+	/**
+	 * @param {{ label?: string, confidence?: number }} prediction
+	 */
 	constructor(prediction = {}) {
 		if (Object.getPrototypeOf(prediction) !== Object.prototype) {
 			throw new Error('prediction must be an object literal')
 		}
 
-		prediction = {
-			label: '',
-			confidence: 0,
-			...prediction
-		}
+		/**
+		 * @type {string}
+		 * @private
+		 */
+		this._label = prediction.label ?? ''
 
-		this._label = prediction.label
-		this._confidence = prediction.confidence
+		/**
+		 * @type {number}
+		 * @private
+		 */
+		this._confidence = prediction.confidence ?? 0
 	}
 
 	/**
@@ -53,5 +54,3 @@ class Prediction {
 		this._confidence = confidence
 	}
 }
-
-export default Prediction

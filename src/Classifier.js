@@ -1,22 +1,21 @@
 import XRegExp from 'xregexp'
-import Model from './Model'
-import Prediction from './Prediction'
-import Vocabulary from './Vocabulary'
+import { Model } from './Model.js'
+import { Prediction } from './Prediction.js'
+import { Vocabulary } from './Vocabulary.js'
 
-/**
- * @param {(Model|Object)} [model]
- * @param {int} [model.nGramMin=1] - Minimum n-gram size
- * @param {int} [model.nGramMax=1] - Maximum n-gram size
- * @param {(Array|Set|false)} [model.vocabulary=[]] - Terms mapped to indexes in the model data entries, set to false to store terms directly in the data entries
- * @param {Object} [model.data={}] - Key-value store containing all training data
- * @constructor
- */
-class Classifier {
+export class Classifier {
+	/**
+	 * @param {Model | Partial<import('./Model.js').ModelConfig>} model
+	 */
 	constructor(model = {}) {
 		if (!(model instanceof Model)) {
 			model = new Model(model)
 		}
 
+		/**
+		 * @type {Model}
+		 * @private
+		 */
 		this._model = model
 	}
 
@@ -104,10 +103,8 @@ class Classifier {
 	/**
 	 * Return an array of one or more Prediction instances
 	 *
-	 * @param {string} input - Input string to make a prediction from
-	 * @param {int} [maxMatches=1] Maximum number of predictions to return
-	 * @param {float} [minimumConfidence=0.2] Minimum confidence required to include a prediction
-	 * @return {Array}
+	 * @param {string} input
+	 * @return {Array<Prediction>}
 	 */
 	predict(input, maxMatches = 1, minimumConfidence = 0.2) {
 		if (typeof input !== 'string') {
@@ -135,7 +132,7 @@ class Classifier {
 		// Convert the string to a tokenized object
 		let tokens = this.tokenize(input)
 
-		if (this.vocabulary !== false) {
+		if (this._model.vocabulary !== false) {
 			// If we're using a vocabulary, convert the tokens to a vector where all
 			// indexes reference vocabulary terms
 			const { vector } = this.vectorize(tokens)
@@ -144,6 +141,9 @@ class Classifier {
 			tokens = vector
 		}
 
+		/**
+		 * @type {Prediction[]}
+		 */
 		const predictions = []
 
 		Object.keys(this._model.data).forEach((label) => {
@@ -177,7 +177,7 @@ class Classifier {
 	 * Split a string into an array of lowercase words, with all non-letter characters removed
 	 *
 	 * @param {string} input
-	 * @return {Array}
+	 * @return {string[]}
 	 */
 	splitWords(input) {
 		if (typeof input !== 'string') {
@@ -202,7 +202,7 @@ class Classifier {
 	 * respective occurrences as values based on an input string, or array of words
 	 *
 	 * @param {(string|string[])} input
-	 * @return {Object}
+	 * @return {Record<string, number>}
 	 */
 	tokenize(input) {
 		let words = typeof input === 'string' ? this.splitWords(input) : input
@@ -217,6 +217,9 @@ class Classifier {
 			)
 		}
 
+		/**
+		 * @type {Record<string, number>}
+		 */
 		let tokens = {}
 
 		// Generate a list of n-grams along with their respective occurrences
@@ -251,8 +254,8 @@ class Classifier {
 	 * translated to their index in the returned vocabulary (which is also
 	 * returned along with the object, with any new terms added to the end)
 	 *
-	 * @param {Object} tokens
-	 * @return {Object}
+	 * @param {Record<string, number>} tokens
+	 * @return {{vector: Record<string, number>, vocabulary: Vocabulary}}
 	 */
 	vectorize(tokens) {
 		if (Object.getPrototypeOf(tokens) !== Object.prototype) {
@@ -264,6 +267,9 @@ class Classifier {
 			throw new Error('Cannot vectorize tokens when vocabulary is false')
 		}
 
+		/**
+		 * @type {Record<string, number>}
+		 */
 		const vector = {}
 		const vocabulary = new Vocabulary(this._model.vocabulary.terms)
 
@@ -288,9 +294,9 @@ class Classifier {
 	/**
 	 * Return the cosine similarity between two vectors
 	 *
-	 * @param {Object} v1
-	 * @param {Object} v2
-	 * @return {float}
+	 * @param {Record<string, number>} v1
+	 * @param {Record<string, number>} v2
+	 * @return {number}
 	 */
 	cosineSimilarity(v1, v2) {
 		if (Object.getPrototypeOf(v1) !== Object.prototype) {
@@ -336,5 +342,3 @@ class Classifier {
 		return prod / (v1Norm * v2Norm)
 	}
 }
-
-export default Classifier

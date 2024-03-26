@@ -1,13 +1,16 @@
-/**
- * @param {Array|Set} terms
- * @constructor
- */
-class Vocabulary {
+export class Vocabulary {
+	/**
+	 * @param {Array<string>|Set<string>} terms
+	 */
 	constructor(terms = []) {
 		if (!(terms instanceof Array) && !(terms instanceof Set)) {
 			throw new Error('terms must be either an Array or a Set')
 		}
 
+		/**
+		 * @type {Set<string>}
+		 * @private
+		 */
 		this._terms = new Set(terms)
 	}
 
@@ -23,7 +26,7 @@ class Vocabulary {
 	/**
 	 * Vocabulary terms
 	 *
-	 * @type {(Array|Set)}
+	 * @type {Set<string>}
 	 */
 	get terms() {
 		return this._terms
@@ -40,7 +43,7 @@ class Vocabulary {
 	/**
 	 * Add one or more terms to the vocabulary
 	 *
-	 * @param {(string|Array|Set)} terms
+	 * @param {(string|Array<string>|Set<string>)} terms
 	 * @return {this}
 	 */
 	add(terms) {
@@ -68,7 +71,7 @@ class Vocabulary {
 	/**
 	 * Remove one or more terms from the vocabulary
 	 *
-	 * @param {(string|Array|Set)} terms
+	 * @param {(string|Array<string>|Set<string>)} terms
 	 * @return {this}
 	 */
 	remove(terms) {
@@ -97,7 +100,7 @@ class Vocabulary {
 	 * Return whether the vocabulary contains a certain term
 	 *
 	 * @param {string} term
-	 * @return {bool}
+	 * @return {boolean}
 	 */
 	has(term) {
 		return this._terms.has(term)
@@ -117,5 +120,3 @@ class Vocabulary {
 		return Array.from(this._terms).indexOf(term)
 	}
 }
-
-export default Vocabulary
