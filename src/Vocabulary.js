@@ -3,15 +3,15 @@ export class Vocabulary {
 	 * @param {Array<string>|Set<string>} terms
 	 */
 	constructor(terms = []) {
-		if (!(terms instanceof Array) && !(terms instanceof Set)) {
-			throw new Error('terms must be either an Array or a Set')
+		if (!Array.isArray(terms) && !(terms instanceof Set)) {
+			throw new Error("terms must be either an Array or a Set");
 		}
 
 		/**
 		 * @type {Set<string>}
 		 * @private
 		 */
-		this._terms = new Set(terms)
+		this._terms = new Set(terms);
 	}
 
 	/**
@@ -20,7 +20,7 @@ export class Vocabulary {
 	 * @type {number}
 	 */
 	get size() {
-		return this._terms.size
+		return this._terms.size;
 	}
 
 	/**
@@ -29,15 +29,15 @@ export class Vocabulary {
 	 * @type {Set<string>}
 	 */
 	get terms() {
-		return this._terms
+		return this._terms;
 	}
 
 	set terms(terms) {
-		if (!(terms instanceof Array) && !(terms instanceof Set)) {
-			throw new Error('terms must be either an Array or a Set')
+		if (!Array.isArray(terms) && !(terms instanceof Set)) {
+			throw new Error("terms must be either an Array or a Set");
 		}
 
-		this._terms = new Set(terms)
+		this._terms = new Set(terms);
 	}
 
 	/**
@@ -48,24 +48,24 @@ export class Vocabulary {
 	 */
 	add(terms) {
 		if (
-			typeof terms !== 'string' &&
-			!(terms instanceof Array) &&
+			typeof terms !== "string" &&
+			!Array.isArray(terms) &&
 			!(terms instanceof Set)
 		) {
-			throw new Error('terms must be either a string, Array or Set')
+			throw new Error("terms must be either a string, Array or Set");
 		}
 
-		if (typeof terms === 'string') {
-			terms = [terms]
+		if (typeof terms === "string") {
+			terms = [terms];
 		} else if (terms instanceof Set) {
-			terms = Array.from(terms)
+			terms = Array.from(terms);
 		}
 
-		terms.forEach((term) => {
-			this._terms.add(term)
-		})
+		for (const term of terms) {
+			this._terms.add(term);
+		}
 
-		return this
+		return this;
 	}
 
 	/**
@@ -76,24 +76,24 @@ export class Vocabulary {
 	 */
 	remove(terms) {
 		if (
-			typeof terms !== 'string' &&
-			!(terms instanceof Array) &&
+			typeof terms !== "string" &&
+			!Array.isArray(terms) &&
 			!(terms instanceof Set)
 		) {
-			throw new Error('terms must be either a string, Array or Set')
+			throw new Error("terms must be either a string, Array or Set");
 		}
 
-		if (typeof terms === 'string') {
-			terms = [terms]
+		if (typeof terms === "string") {
+			terms = [terms];
 		} else if (terms instanceof Set) {
-			terms = Array.from(terms)
+			terms = Array.from(terms);
 		}
 
-		terms.forEach((term) => {
-			this._terms.delete(term)
-		})
+		for (const term of terms) {
+			this._terms.delete(term);
+		}
 
-		return this
+		return this;
 	}
 
 	/**
@@ -103,7 +103,7 @@ export class Vocabulary {
 	 * @return {boolean}
 	 */
 	has(term) {
-		return this._terms.has(term)
+		return this._terms.has(term);
 	}
 
 	/**
@@ -114,9 +114,9 @@ export class Vocabulary {
 	 */
 	indexOf(term) {
 		if (!this._terms.has(term)) {
-			return -1
+			return -1;
 		}
 
-		return Array.from(this._terms).indexOf(term)
+		return Array.from(this._terms).indexOf(term);
 	}
 }

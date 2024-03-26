@@ -50,6 +50,7 @@
 	},
 	"homepage": "https://github.com/andreekeberg/ml-classify-text-js",
 	"devDependencies": {
+		"@biomejs/biome": "1.6.3",
 		"jsdoc": "^4.0.0",
 		"jsdoc-to-markdown": "^8.0.0",
 		"rimraf": "^4.1.2",

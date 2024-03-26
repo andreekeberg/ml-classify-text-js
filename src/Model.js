@@ -1,4 +1,4 @@
-import { Vocabulary } from './Vocabulary.js'
+import { Vocabulary } from "./Vocabulary.js";
 
 /**
  * @typedef {Record<string, Record<string, number>>} ModelData
@@ -11,7 +11,7 @@ export class Model {
 	 */
 	constructor(config = {}) {
 		if (Object.getPrototypeOf(config) !== Object.prototype) {
-			throw new Error('config must be an object literal')
+			throw new Error("config must be an object literal");
 		}
 
 		config = {
@@ -19,27 +19,27 @@ export class Model {
 			nGramMax: 1,
 			vocabulary: [],
 			data: {},
-			...config
+			...config,
+		};
+
+		if (config.nGramMin !== Number.parseInt(String(config.nGramMin), 10)) {
+			throw new Error("Config value nGramMin must be an integer");
 		}
 
-		if (config.nGramMin !== parseInt(String(config.nGramMin), 10)) {
-			throw new Error('Config value nGramMin must be an integer')
-		}
-
-		if (config.nGramMax !== parseInt(String(config.nGramMax), 10)) {
-			throw new Error('Config value nGramMax must be an integer')
+		if (config.nGramMax !== Number.parseInt(String(config.nGramMax), 10)) {
+			throw new Error("Config value nGramMax must be an integer");
 		}
 
 		if (config.nGramMin < 1) {
-			throw new Error('Config value nGramMin must be at least 1')
+			throw new Error("Config value nGramMin must be at least 1");
 		}
 
 		if (config.nGramMax < 1) {
-			throw new Error('Config value nGramMax must be at least 1')
+			throw new Error("Config value nGramMax must be at least 1");
 		}
 
 		if (config.nGramMax < config.nGramMin) {
-			throw new Error('Invalid nGramMin/nGramMax combination in config')
+			throw new Error("Invalid nGramMin/nGramMax combination in config");
 		}
 
 		if (
@@ -50,36 +50,36 @@ export class Model {
 			 * @type {Vocabulary|false}
 			 * @private
 			 */
-			this._vocabulary = new Vocabulary(config.vocabulary)
+			this._vocabulary = new Vocabulary(config.vocabulary);
 		} else {
 			/**
 			 * @type {Vocabulary|false}
 			 * @private
 			 */
-			this._vocabulary = config.vocabulary
+			this._vocabulary = config.vocabulary;
 		}
 
 		if (Object.getPrototypeOf(config.data) !== Object.prototype) {
-			throw new Error('Config value data must be an object literal')
+			throw new Error("Config value data must be an object literal");
 		}
 
 		/**
 		 * @type {number}
 		 * @private
 		 */
-		this._nGramMin = config.nGramMin
+		this._nGramMin = config.nGramMin;
 
 		/**
 		 * @type {number}
 		 * @private
 		 */
-		this._nGramMax = config.nGramMax
+		this._nGramMax = config.nGramMax;
 
 		/**
 		 * @type {ModelData}
 		 * @private
 		 */
-		this._data = { ...config.data }
+		this._data = { ...config.data };
 	}
 
 	/**
@@ -88,15 +88,15 @@ export class Model {
 	 * @type {number}
 	 */
 	get nGramMin() {
-		return this._nGramMin
+		return this._nGramMin;
 	}
 
 	set nGramMin(size) {
-		if (size !== parseInt(String(size), 10)) {
-			throw new Error('nGramMin must be an integer')
+		if (size !== Number.parseInt(String(size), 10)) {
+			throw new Error("nGramMin must be an integer");
 		}
 
-		this._nGramMin = size
+		this._nGramMin = size;
 	}
 
 	/**
@@ -105,15 +105,15 @@ export class Model {
 	 * @type {number}
 	 */
 	get nGramMax() {
-		return this._nGramMax
+		return this._nGramMax;
 	}
 
 	set nGramMax(size) {
-		if (size !== parseInt(String(size), 10)) {
-			throw new Error('nGramMax must be an integer')
+		if (size !== Number.parseInt(String(size), 10)) {
+			throw new Error("nGramMax must be an integer");
 		}
 
-		this._nGramMax = size
+		this._nGramMax = size;
 	}
 
 	/**
@@ -122,15 +122,15 @@ export class Model {
 	 * @type {(Vocabulary|false)}
 	 */
 	get vocabulary() {
-		return this._vocabulary
+		return this._vocabulary;
 	}
 
 	set vocabulary(vocabulary) {
 		if (vocabulary !== false && !(vocabulary instanceof Vocabulary)) {
-			vocabulary = new Vocabulary(vocabulary)
+			vocabulary = new Vocabulary(vocabulary);
 		}
 
-		this._vocabulary = vocabulary
+		this._vocabulary = vocabulary;
 	}
 
 	/**
@@ -139,15 +139,15 @@ export class Model {
 	 * @type {ModelData}
 	 */
 	get data() {
-		return this._data
+		return this._data;
 	}
 
 	set data(data) {
 		if (!(data instanceof Object) || data.constructor !== Object) {
-			throw new Error('data must be an object literal')
+			throw new Error("data must be an object literal");
 		}
 
-		this._data = { ...data }
+		this._data = { ...data };
 	}
 
 	/**
@@ -161,10 +161,8 @@ export class Model {
 		return {
 			nGramMin: this._nGramMin,
 			nGramMax: this._nGramMax,
-			vocabulary: this._vocabulary
-				? Array.from(this._vocabulary.terms)
-				: false,
-			data: this._data
-		}
+			vocabulary: this._vocabulary ? Array.from(this._vocabulary.terms) : false,
+			data: this._data,
+		};
 	}
 }

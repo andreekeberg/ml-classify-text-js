@@ -1,7 +1,7 @@
-import XRegExp from 'xregexp'
-import { Model } from './Model.js'
-import { Prediction } from './Prediction.js'
-import { Vocabulary } from './Vocabulary.js'
+import XRegExp from "xregexp";
+import { Model } from "./Model.js";
+import { Prediction } from "./Prediction.js";
+import { Vocabulary } from "./Vocabulary.js";
 
 export class Classifier {
 	/**
@@ -9,14 +9,14 @@ export class Classifier {
 	 */
 	constructor(model = {}) {
 		if (!(model instanceof Model)) {
-			model = new Model(model)
+			model = new Model(model);
 		}
 
 		/**
 		 * @type {Model}
 		 * @private
 		 */
-		this._model = model
+		this._model = model;
 	}
 
 	/**
@@ -25,15 +25,15 @@ export class Classifier {
 	 * @type {Model}
 	 */
 	get model() {
-		return this._model
+		return this._model;
 	}
 
 	set model(model) {
 		if (!(model instanceof Model)) {
-			model = new Model(model)
+			model = new Model(model);
 		}
 
-		this._model = model
+		this._model = model;
 	}
 
 	/**
@@ -44,60 +44,55 @@ export class Classifier {
 	 * @return {this}
 	 */
 	train(input, label) {
-		if (typeof input !== 'string' && !(input instanceof Array)) {
-			throw new Error('input must be either a string or Array')
+		if (typeof input !== "string" && !Array.isArray(input)) {
+			throw new Error("input must be either a string or Array");
 		}
 
-		if (typeof label !== 'string') {
-			throw new Error('label must be a string')
+		if (typeof label !== "string") {
+			throw new Error("label must be a string");
 		}
 
 		// If input isn't an array, convert to a single item array
-		if (!(input instanceof Array)) {
-			input = [input]
+		if (!Array.isArray(input)) {
+			input = [input];
 		}
 
-		input.forEach((string) => {
+		for (const string of input) {
 			// Convert the string to a tokenized object
-			let tokens = this.tokenize(string)
+			let tokens = this.tokenize(string);
 
 			if (this._model.vocabulary !== false) {
 				// If we're using a vocabulary, convert the tokens to a vector where all
 				// indexes reference vocabulary terms
-				const { vector, vocabulary } = this.vectorize(tokens)
+				const { vector, vocabulary } = this.vectorize(tokens);
 
 				// Overwrite the tokens object with our new vectorized object
-				tokens = vector
+				tokens = vector;
 
 				// Update the model vocabulary
-				this._model.vocabulary = vocabulary
+				this._model.vocabulary = vocabulary;
 			}
 
 			// Set up an empty entry for the label if it does not exist
-			if (
-				!Object.prototype.hasOwnProperty.call(this._model.data, label)
-			) {
-				this._model.data[label] = {}
+			if (!Object.prototype.hasOwnProperty.call(this._model.data, label)) {
+				this._model.data[label] = {};
 			}
 
 			// Add all occurrences to our model entry
-			Object.keys(tokens).forEach((index) => {
-				let occurrences = tokens[index]
+			for (const index of Object.keys(tokens)) {
+				const occurrences = tokens[index];
 
 				if (
-					!Object.prototype.hasOwnProperty.call(
-						this._model.data[label],
-						index
-					)
+					!Object.prototype.hasOwnProperty.call(this._model.data[label], index)
 				) {
-					this._model.data[label][index] = 0
+					this._model.data[label][index] = 0;
 				}
 
-				this._model.data[label][index] += occurrences
-			})
-		})
+				this._model.data[label][index] += occurrences;
+			}
+		}
 
-		return this
+		return this;
 	}
 
 	/**
@@ -107,70 +102,67 @@ export class Classifier {
 	 * @return {Array<Prediction>}
 	 */
 	predict(input, maxMatches = 1, minimumConfidence = 0.2) {
-		if (typeof input !== 'string') {
-			throw new Error('input must be a string')
+		if (typeof input !== "string") {
+			throw new Error("input must be a string");
 		}
 
-		if (!['number', 'undefined'].includes(typeof maxMatches)) {
-			throw new Error('maxMatches must be either a number or undefined')
+		if (!["number", "undefined"].includes(typeof maxMatches)) {
+			throw new Error("maxMatches must be either a number or undefined");
 		}
 
-		if (!['number', 'undefined'].includes(typeof minimumConfidence)) {
-			throw new Error(
-				'minimumConfidence must be either a number or undefined'
-			)
+		if (!["number", "undefined"].includes(typeof minimumConfidence)) {
+			throw new Error("minimumConfidence must be either a number or undefined");
 		}
 
 		if (minimumConfidence < 0) {
-			throw new Error('minimumConfidence can not be lower than 0')
+			throw new Error("minimumConfidence can not be lower than 0");
 		}
 
 		if (minimumConfidence > 1) {
-			throw new Error('minimumConfidence can not be higher than 1')
+			throw new Error("minimumConfidence can not be higher than 1");
 		}
 
 		// Convert the string to a tokenized object
-		let tokens = this.tokenize(input)
+		let tokens = this.tokenize(input);
 
 		if (this._model.vocabulary !== false) {
 			// If we're using a vocabulary, convert the tokens to a vector where all
 			// indexes reference vocabulary terms
-			const { vector } = this.vectorize(tokens)
+			const { vector } = this.vectorize(tokens);
 
 			// Overwrite the tokens object with our new vectorized object
-			tokens = vector
+			tokens = vector;
 		}
 
 		/**
 		 * @type {Prediction[]}
 		 */
-		const predictions = []
+		const predictions = [];
 
-		Object.keys(this._model.data).forEach((label) => {
-			let entry = this._model.data[label]
-
-			let confidence = this.cosineSimilarity(tokens, entry)
+		for (const label of Object.keys(this._model.data)) {
+			const entry = this._model.data[label];
+			const confidence = this.cosineSimilarity(tokens, entry);
 
 			if (confidence >= minimumConfidence) {
 				predictions.push(
 					new Prediction({
 						label,
-						confidence
+						confidence,
 					})
-				)
+				);
 			}
-		})
+		}
 
 		/* istanbul ignore next */
 		predictions.sort((a, b) => {
 			if (a.confidence === b.confidence) {
-				return 0
+				return 0;
 			}
 
-			return a.confidence > b.confidence ? -1 : 1
-		})
+			return a.confidence > b.confidence ? -1 : 1;
+		});
 
-		return predictions.slice(0, Math.min(predictions.length, maxMatches))
+		return predictions.slice(0, Math.min(predictions.length, maxMatches));
 	}
 
 	/**
@@ -180,21 +172,21 @@ export class Classifier {
 	 * @return {string[]}
 	 */
 	splitWords(input) {
-		if (typeof input !== 'string') {
-			throw new Error('input must be a string')
+		if (typeof input !== "string") {
+			throw new Error("input must be a string");
 		}
 
 		// Remove all apostrophes and dashes to keep words intact
-		input = input.replace(/'|´|’|-/g, '')
+		input = input.replace(/'|´|’|-/g, "");
 
 		// Lowercase all letters and replace all non-letter characters with a space
 		input = XRegExp.replace(
 			input.toLocaleLowerCase(),
-			XRegExp('\\P{L}+', 'g'),
-			' '
-		).trim()
+			XRegExp("\\P{L}+", "g"),
+			" "
+		).trim();
 
-		return input.split(' ')
+		return input.split(" ");
 	}
 
 	/**
@@ -205,48 +197,46 @@ export class Classifier {
 	 * @return {Record<string, number>}
 	 */
 	tokenize(input) {
-		let words = typeof input === 'string' ? this.splitWords(input) : input
+		const words = typeof input === "string" ? this.splitWords(input) : input;
 
-		if (!(words instanceof Array)) {
-			throw new Error('input must be either a string or Array')
+		if (!Array.isArray(words)) {
+			throw new Error("input must be either a string or Array");
 		}
 
 		if (this._model.nGramMax < this._model.nGramMin) {
-			throw new Error(
-				'Invalid nGramMin/nGramMax combination in model config'
-			)
+			throw new Error("Invalid nGramMin/nGramMax combination in model config");
 		}
 
 		/**
 		 * @type {Record<string, number>}
 		 */
-		let tokens = {}
+		const tokens = {};
 
 		// Generate a list of n-grams along with their respective occurrences
 		// based on the models configured min/max values
 		words.forEach((word, index) => {
-			let sequence = ''
+			let sequence = "";
 
-			words.slice(index).forEach((nextWord) => {
-				sequence += sequence ? ' ' + nextWord : nextWord
-				let tokenCount = sequence.split(' ').length
+			for (const nextWord of words.slice(index)) {
+				sequence += sequence ? ` ${nextWord}` : nextWord;
+				const tokenCount = sequence.split(" ").length;
 
 				if (
 					tokenCount < this._model.nGramMin ||
 					tokenCount > this._model.nGramMax
 				) {
-					return
+					return;
 				}
 
 				if (!Object.prototype.hasOwnProperty.call(tokens, sequence)) {
-					tokens[sequence] = 0
+					tokens[sequence] = 0;
 				}
 
-				++tokens[sequence]
-			})
-		})
+				++tokens[sequence];
+			}
+		});
 
-		return tokens
+		return tokens;
 	}
 
 	/**
@@ -259,36 +249,36 @@ export class Classifier {
 	 */
 	vectorize(tokens) {
 		if (Object.getPrototypeOf(tokens) !== Object.prototype) {
-			throw new Error('tokens must be an object literal')
+			throw new Error("tokens must be an object literal");
 		}
 
 		/* istanbul ignore next */
 		if (this._model.vocabulary === false) {
-			throw new Error('Cannot vectorize tokens when vocabulary is false')
+			throw new Error("Cannot vectorize tokens when vocabulary is false");
 		}
 
 		/**
 		 * @type {Record<string, number>}
 		 */
-		const vector = {}
-		const vocabulary = new Vocabulary(this._model.vocabulary.terms)
+		const vector = {};
+		const vocabulary = new Vocabulary(this._model.vocabulary.terms);
 
-		Object.keys(tokens).forEach((token) => {
-			let vocabularyIndex = vocabulary.indexOf(token)
+		for (const token of Object.keys(tokens)) {
+			let vocabularyIndex = vocabulary.indexOf(token);
 
 			if (vocabularyIndex === -1) {
-				vocabulary.add(token)
+				vocabulary.add(token);
 
-				vocabularyIndex = vocabulary.size - 1
+				vocabularyIndex = vocabulary.size - 1;
 			}
 
-			vector[vocabularyIndex] = tokens[token]
-		})
+			vector[vocabularyIndex] = tokens[token];
+		}
 
 		return {
 			vector,
-			vocabulary
-		}
+			vocabulary,
+		};
 	}
 
 	/**
@@ -300,45 +290,44 @@ export class Classifier {
 	 */
 	cosineSimilarity(v1, v2) {
 		if (Object.getPrototypeOf(v1) !== Object.prototype) {
-			throw new Error('v1 must be an object literal')
+			throw new Error("v1 must be an object literal");
 		}
 		if (Object.getPrototypeOf(v2) !== Object.prototype) {
-			throw new Error('v2 must be an object literal')
+			throw new Error("v2 must be an object literal");
 		}
 
-		let prod = 0.0
-		let v1Norm = 0.0
+		let prod = 0.0;
+		let v1Norm = 0.0;
 
-		Object.keys(v1).forEach((i) => {
-			let xi = v1[i]
+		for (const i of Object.keys(v1)) {
+			const xi = v1[i];
 
 			if (Object.prototype.hasOwnProperty.call(v2, i)) {
-				prod += xi * v2[i]
+				prod += xi * v2[i];
 			}
 
-			v1Norm += xi * xi
-		})
+			v1Norm += xi * xi;
+		}
 
-		v1Norm = Math.sqrt(v1Norm)
+		v1Norm = Math.sqrt(v1Norm);
 
 		if (v1Norm === 0) {
-			return 0
+			return 0;
 		}
 
-		let v2Norm = 0.0
+		let v2Norm = 0.0;
 
-		Object.keys(v2).forEach((i) => {
-			let xi = v2[i]
+		for (const i of Object.keys(v2)) {
+			const xi = v2[i];
+			v2Norm += xi * xi;
+		}
 
-			v2Norm += xi * xi
-		})
-
-		v2Norm = Math.sqrt(v2Norm)
+		v2Norm = Math.sqrt(v2Norm);
 
 		if (v2Norm === 0) {
-			return 0
+			return 0;
 		}
 
-		return prod / (v1Norm * v2Norm)
+		return prod / (v1Norm * v2Norm);
 	}
 }
