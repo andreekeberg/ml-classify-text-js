@@ -7,14 +7,14 @@ export class Prediction {
 	 */
 	constructor(prediction: { label?: string; confidence?: number } = {}) {
 		if (Object.getPrototypeOf(prediction) !== Object.prototype) {
-			throw new Error("prediction must be an object literal");
+			throw new Error('prediction must be an object literal');
 		}
 
 		/**
 		 * @type {string}
 		 * @private
 		 */
-		this._label = prediction.label ?? "";
+		this._label = prediction.label ?? '';
 
 		/**
 		 * @type {number}
@@ -33,8 +33,8 @@ export class Prediction {
 	}
 
 	set label(label) {
-		if (typeof label !== "string") {
-			throw new Error("label must be a string");
+		if (typeof label !== 'string') {
+			throw new Error('label must be a string');
 		}
 
 		this._label = label;
@@ -50,8 +50,8 @@ export class Prediction {
 	}
 
 	set confidence(confidence) {
-		if (typeof confidence !== "number") {
-			throw new Error("confidence must be a number");
+		if (typeof confidence !== 'number') {
+			throw new Error('confidence must be a number');
 		}
 
 		this._confidence = confidence;

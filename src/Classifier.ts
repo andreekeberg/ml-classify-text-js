@@ -1,7 +1,7 @@
-import XRegExp from "xregexp";
-import { Model, type ModelConfig } from "./Model.js";
-import { Prediction } from "./Prediction.js";
-import { Vocabulary } from "./Vocabulary.js";
+import XRegExp from 'xregexp';
+import { Model, type ModelConfig } from './Model.js';
+import { Prediction } from './Prediction.js';
+import { Vocabulary } from './Vocabulary.js';
 
 export class Classifier {
 	private _model: Model;
@@ -43,12 +43,12 @@ export class Classifier {
 	 * @return {this}
 	 */
 	train(input: string | string[], label: string): this {
-		if (typeof input !== "string" && !Array.isArray(input)) {
-			throw new Error("input must be either a string or Array");
+		if (typeof input !== 'string' && !Array.isArray(input)) {
+			throw new Error('input must be either a string or Array');
 		}
 
-		if (typeof label !== "string") {
-			throw new Error("label must be a string");
+		if (typeof label !== 'string') {
+			throw new Error('label must be a string');
 		}
 
 		// If input isn't an array, convert to a single item array
@@ -103,26 +103,26 @@ export class Classifier {
 	predict(
 		input: string,
 		maxMatches = 1,
-		minimumConfidence = 0.2
+		minimumConfidence = 0.2,
 	): Array<Prediction> {
-		if (typeof input !== "string") {
-			throw new Error("input must be a string");
+		if (typeof input !== 'string') {
+			throw new Error('input must be a string');
 		}
 
-		if (!["number", "undefined"].includes(typeof maxMatches)) {
-			throw new Error("maxMatches must be either a number or undefined");
+		if (!['number', 'undefined'].includes(typeof maxMatches)) {
+			throw new Error('maxMatches must be either a number or undefined');
 		}
 
-		if (!["number", "undefined"].includes(typeof minimumConfidence)) {
-			throw new Error("minimumConfidence must be either a number or undefined");
+		if (!['number', 'undefined'].includes(typeof minimumConfidence)) {
+			throw new Error('minimumConfidence must be either a number or undefined');
 		}
 
 		if (minimumConfidence < 0) {
-			throw new Error("minimumConfidence can not be lower than 0");
+			throw new Error('minimumConfidence can not be lower than 0');
 		}
 
 		if (minimumConfidence > 1) {
-			throw new Error("minimumConfidence can not be higher than 1");
+			throw new Error('minimumConfidence can not be higher than 1');
 		}
 
 		// Convert the string to a tokenized object
@@ -151,7 +151,7 @@ export class Classifier {
 					new Prediction({
 						label,
 						confidence,
-					})
+					}),
 				);
 			}
 		}
@@ -175,21 +175,21 @@ export class Classifier {
 	 * @return {string[]}
 	 */
 	splitWords(input: string): string[] {
-		if (typeof input !== "string") {
-			throw new Error("input must be a string");
+		if (typeof input !== 'string') {
+			throw new Error('input must be a string');
 		}
 
 		// Remove all apostrophes and dashes to keep words intact
-		input = input.replace(/'|´|’|-/g, "");
+		input = input.replace(/'|´|’|-/g, '');
 
 		// Lowercase all letters and replace all non-letter characters with a space
 		input = XRegExp.replace(
 			input.toLocaleLowerCase(),
-			XRegExp("\\P{L}+", "g"),
-			" "
+			XRegExp('\\P{L}+', 'g'),
+			' ',
 		).trim();
 
-		return input.split(" ");
+		return input.split(' ');
 	}
 
 	/**
@@ -200,14 +200,14 @@ export class Classifier {
 	 * @return {Record<string, number>}
 	 */
 	tokenize(input: string | string[]): Record<string, number> {
-		const words = typeof input === "string" ? this.splitWords(input) : input;
+		const words = typeof input === 'string' ? this.splitWords(input) : input;
 
 		if (!Array.isArray(words)) {
-			throw new Error("input must be either a string or Array");
+			throw new Error('input must be either a string or Array');
 		}
 
 		if (this._model.nGramMax < this._model.nGramMin) {
-			throw new Error("Invalid nGramMin/nGramMax combination in model config");
+			throw new Error('Invalid nGramMin/nGramMax combination in model config');
 		}
 
 		/**
@@ -218,7 +218,7 @@ export class Classifier {
 		// Generate a list of n-grams along with their respective occurrences
 		// based on the models configured min/max values
 		words.forEach((_, index) => {
-			let sequence = "";
+			let sequence = '';
 			let tokenCount = 0;
 			let nextWord: string;
 
@@ -234,7 +234,7 @@ export class Classifier {
 					tokenCount >= this._model.nGramMin &&
 					tokenCount <= this._model.nGramMax
 				) {
-					if (typeof tokens[sequence] === "undefined") {
+					if (typeof tokens[sequence] === 'undefined') {
 						tokens[sequence] = 0;
 					}
 
@@ -259,12 +259,12 @@ export class Classifier {
 		vocabulary: Vocabulary;
 	} {
 		if (Object.getPrototypeOf(tokens) !== Object.prototype) {
-			throw new Error("tokens must be an object literal");
+			throw new Error('tokens must be an object literal');
 		}
 
 		/* istanbul ignore next */
 		if (this._model.vocabulary === false) {
-			throw new Error("Cannot vectorize tokens when vocabulary is false");
+			throw new Error('Cannot vectorize tokens when vocabulary is false');
 		}
 
 		/**
@@ -300,13 +300,13 @@ export class Classifier {
 	 */
 	cosineSimilarity(
 		v1: Record<string, number>,
-		v2: Record<string, number>
+		v2: Record<string, number>,
 	): number {
 		if (Object.getPrototypeOf(v1) !== Object.prototype) {
-			throw new Error("v1 must be an object literal");
+			throw new Error('v1 must be an object literal');
 		}
 		if (Object.getPrototypeOf(v2) !== Object.prototype) {
-			throw new Error("v2 must be an object literal");
+			throw new Error('v2 must be an object literal');
 		}
 
 		let prod = 0.0;

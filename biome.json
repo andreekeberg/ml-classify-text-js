@@ -14,5 +14,10 @@
 	},
 	"files": {
 		"ignore": ["dist/*"]
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single"
+		}
 	}
 }

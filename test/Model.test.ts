@@ -1,78 +1,78 @@
-import { describe, test, expect } from "vitest";
+import { describe, expect, test } from 'vitest';
 
-import { Model } from "../src/Model.js";
-import { Vocabulary } from "../src/Vocabulary.js";
+import { Model } from '../src/Model.js';
+import { Vocabulary } from '../src/Vocabulary.js';
 
-describe("Model", () => {
-	describe("constructor", () => {
-		test("should throw an error if config is not an object literal", () => {
+describe('Model', () => {
+	describe('constructor', () => {
+		test('should throw an error if config is not an object literal', () => {
 			expect(() => new Model([])).toThrow(Error);
 		});
 
-		test("should throw an error if config option nGramMin is not a number", () => {
+		test('should throw an error if config option nGramMin is not a number', () => {
 			expect(
 				() =>
 					new Model({
-						nGramMin: "",
-					})
+						nGramMin: '',
+					}),
 			).toThrow(Error);
 		});
 
-		test("should throw an error if config option nGramMax is not a number", () => {
+		test('should throw an error if config option nGramMax is not a number', () => {
 			expect(
 				() =>
 					new Model({
-						nGramMax: "",
-					})
+						nGramMax: '',
+					}),
 			).toThrow(Error);
 		});
 
-		test("should throw an error if config option nGramMin is less than 1", () => {
+		test('should throw an error if config option nGramMin is less than 1', () => {
 			expect(
 				() =>
 					new Model({
 						nGramMin: 0,
-					})
+					}),
 			).toThrow(Error);
 		});
 
-		test("should throw an error if config option nGramMax is less than 1", () => {
+		test('should throw an error if config option nGramMax is less than 1', () => {
 			expect(
 				() =>
 					new Model({
 						nGramMax: 0,
-					})
+					}),
 			).toThrow(Error);
 		});
 
-		test("should throw an error if config option nGramMax is less than nGramMin", () => {
+		test('should throw an error if config option nGramMax is less than nGramMin', () => {
 			expect(
 				() =>
 					new Model({
 						nGramMin: 2,
 						nGramMax: 1,
-					})
+					}),
 			).toThrow(Error);
 		});
 
-		test("should throw an error if data is not an object literal", () => {
+		test('should throw an error if data is not an object literal', () => {
 			expect(
 				() =>
 					new Model({
 						data: [],
-					})
+					}),
 			).toThrow(Error);
 		});
 	});
 
-	describe("nGramMin", () => {
-		test("should return a number", () => {
+	describe('nGramMin', () => {
+		test('should return a number', () => {
 			const model = new Model();
 
-			expect(typeof model.nGramMin).toStrictEqual("number");
+			expect(typeof model.nGramMin).toStrictEqual('number');
 		});
 
-		test("should return the current nGramMin value", () => {
+		test('should return the current nGramMin value', () => {
 			const model = new Model({
 				nGramMin: 3,
 				nGramMax: 4,
@@ -81,7 +81,7 @@ describe("Model", () => {
 			expect(model.nGramMin).toStrictEqual(3);
 		});
 
-		test("should set the nGramMin value", () => {
+		test('should set the nGramMin value', () => {
 			const model = new Model();
 
 			model.nGramMin = 2;
@@ -89,7 +89,7 @@ describe("Model", () => {
 			expect(model.nGramMin).toStrictEqual(2);
 		});
 
-		test("should throw an error if size is not an integer", () => {
+		test('should throw an error if size is not an integer', () => {
 			const model = new Model();
 
 			expect(() => {
@@ -98,14 +98,14 @@ describe("Model", () => {
 		});
 	});
 
-	describe("nGramMax", () => {
-		test("should return a number", () => {
+	describe('nGramMax', () => {
+		test('should return a number', () => {
 			const model = new Model();
 
-			expect(typeof model.nGramMax).toStrictEqual("number");
+			expect(typeof model.nGramMax).toStrictEqual('number');
 		});
 
-		test("should return the current nGramMax value", () => {
+		test('should return the current nGramMax value', () => {
 			const model = new Model({
 				nGramMax: 2,
 			});
@@ -113,7 +113,7 @@ describe("Model", () => {
 			expect(model.nGramMax).toStrictEqual(2);
 		});
 
-		test("should set the nGramMax value", () => {
+		test('should set the nGramMax value', () => {
 			const model = new Model();
 
 			model.nGramMax = 3;
@@ -121,7 +121,7 @@ describe("Model", () => {
 			expect(model.nGramMax).toStrictEqual(3);
 		});
 
-		test("should throw an error if size is not an integer", () => {
+		test('should throw an error if size is not an integer', () => {
 			const model = new Model();
 
 			expect(() => {
@@ -130,14 +130,14 @@ describe("Model", () => {
 		});
 	});
 
-	describe("vocabulary", () => {
-		test("should return a vocabulary instance", () => {
+	describe('vocabulary', () => {
+		test('should return a vocabulary instance', () => {
 			const model = new Model();
 
 			expect(model.vocabulary).toBeInstanceOf(Vocabulary);
 		});
 
-		test("should return false when vocabulary is configured to false", () => {
+		test('should return false when vocabulary is configured to false', () => {
 			const model = new Model({
 				vocabulary: false,
 			});
@@ -145,18 +145,18 @@ describe("Model", () => {
 			expect(model.vocabulary).toStrictEqual(false);
 		});
 
-		test("should set the vocabulary value when passing an array", () => {
+		test('should set the vocabulary value when passing an array', () => {
 			const model = new Model();
 
-			model.vocabulary = ["hello", "world"];
+			model.vocabulary = ['hello', 'world'];
 
 			expect(Array.from(model.vocabulary.terms)).toStrictEqual([
-				"hello",
-				"world",
+				'hello',
+				'world',
 			]);
 		});
 
-		test("should set the vocabulary value when passing false", () => {
+		test('should set the vocabulary value when passing false', () => {
 			const model = new Model();
 
 			model.vocabulary = false;
@@ -165,14 +165,14 @@ describe("Model", () => {
 		});
 	});
 
-	describe("data", () => {
-		test("should return an object literal", () => {
+	describe('data', () => {
+		test('should return an object literal', () => {
 			const model = new Model();
 
 			expect(model.data).toStrictEqual({});
 		});
 
-		test("should set the model data", () => {
+		test('should set the model data', () => {
 			const model = new Model();
 
 			model.data = {
@@ -184,7 +184,7 @@ describe("Model", () => {
 			});
 		});
 
-		test("should throw an error if data is not an object literal", () => {
+		test('should throw an error if data is not an object literal', () => {
 			const model = new Model();
 
 			expect(() => {
@@ -193,8 +193,8 @@ describe("Model", () => {
 		});
 	});
 
-	describe("serialize", () => {
-		test("should return an object literal created from the current model", () => {
+	describe('serialize', () => {
+		test('should return an object literal created from the current model', () => {
 			const model = new Model();
 
 			expect(model.serialize()).toStrictEqual({

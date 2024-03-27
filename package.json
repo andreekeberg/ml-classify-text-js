@@ -18,7 +18,8 @@
 		"test": "vitest run",
 		"lint": "biome lint src test",
 		"build": "tsup src/index.ts --format esm,cjs --dts --clean",
-		"prepublish": "npm run lint && npm run test && npm run build"
+		"prepublish": "npm run lint && npm run test && npm run build",
+		"format": "biome check --apply ."
 	},
 	"repository": {
 		"type": "git",

@@ -1,15 +1,15 @@
-import { describe, test, expect } from "vitest";
-import { Prediction } from "../src/Prediction.js";
+import { describe, expect, test } from 'vitest';
+import { Prediction } from '../src/Prediction.js';
 
-describe("Prediction", () => {
-	describe("constructor", () => {
-		test("should throw an error if prediction is not an object literal", () => {
+describe('Prediction', () => {
+	describe('constructor', () => {
+		test('should throw an error if prediction is not an object literal', () => {
 			expect(() => new Prediction([])).toThrow(Error);
 		});
 	});
 
-	describe("label", () => {
-		test("should throw an error if label is not a string", () => {
+	describe('label', () => {
+		test('should throw an error if label is not a string', () => {
 			const prediction = new Prediction();
 
 			expect(() => {
@@ -17,45 +17,45 @@ describe("Prediction", () => {
 			}).toThrow(Error);
 		});
 
-		test("should return a string", () => {
+		test('should return a string', () => {
 			const prediction = new Prediction();
 
-			expect(typeof prediction.label).toStrictEqual("string");
+			expect(typeof prediction.label).toStrictEqual('string');
 		});
 
-		test("should return the defined prediction label", () => {
+		test('should return the defined prediction label', () => {
 			const prediction = new Prediction({
-				label: "test",
+				label: 'test',
 			});
 
-			expect(prediction.label).toStrictEqual("test");
+			expect(prediction.label).toStrictEqual('test');
 		});
 
-		test("should set the prediction label", () => {
+		test('should set the prediction label', () => {
 			const prediction = new Prediction();
 
-			prediction.label = "test";
+			prediction.label = 'test';
 
-			expect(prediction.label).toStrictEqual("test");
+			expect(prediction.label).toStrictEqual('test');
 		});
 	});
 
-	describe("confidence", () => {
-		test("should throw an error if confidence is not a number", () => {
+	describe('confidence', () => {
+		test('should throw an error if confidence is not a number', () => {
 			const prediction = new Prediction();
 
 			expect(() => {
-				prediction.confidence = "test";
+				prediction.confidence = 'test';
 			}).toThrow(Error);
 		});
 
-		test("should return a number", () => {
+		test('should return a number', () => {
 			const prediction = new Prediction();
 
-			expect(typeof prediction.confidence).toStrictEqual("number");
+			expect(typeof prediction.confidence).toStrictEqual('number');
 		});
 
-		test("should return the defined prediction confidence", () => {
+		test('should return the defined prediction confidence', () => {
 			const prediction = new Prediction({
 				confidence: 0.5,
 			});
@@ -63,7 +63,7 @@ describe("Prediction", () => {
 			expect(prediction.confidence).toBeCloseTo(0.5);
 		});
 
-		test("should set the prediction confidence", () => {
+		test('should set the prediction confidence', () => {
 			const prediction = new Prediction();
 
 			prediction.confidence = 1;
