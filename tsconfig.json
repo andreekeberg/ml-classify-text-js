@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"noEmit": true,
+		"esModuleInterop": true,
+		"downlevelIteration": true,
+		"strict": true,
+		"lib": ["es2020", "dom"],
+		"moduleResolution": "NodeNext",
+		"module": "NodeNext"
+	},
+	"include": ["src", "cli"],
+	"exclude": ["**/*.spec.*"]
+}

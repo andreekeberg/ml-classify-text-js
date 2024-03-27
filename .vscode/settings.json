@@ -1,6 +1,5 @@
 {
-    "editor.formatOnSave": true,
-    "files.insertFinalNewline": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "prettier.useTabs": true
+	"editor.formatOnSave": true,
+	"files.insertFinalNewline": true,
+  "editor.defaultFormatter": "biomejs.biome"
 }
